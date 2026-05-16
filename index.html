@@ -584,6 +584,52 @@ section {
   50% { opacity: 1; transform: scaleY(1); }
 }
 
+/* ===== 모바일: 영상 위 / 글씨 아래 2단 레이아웃 (720px 미만) ===== */
+@media (max-width: 719px) {
+  .hero {
+    height: auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+  }
+  /* 영상을 화면 흐름 안에 배치 — 가로폭에 맞춰 16:9로 꽉 차게 (반응형) */
+  .hero-video {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+  .hero-photo,
+  .hero-video-wrap {
+    position: absolute;
+    inset: 0;
+  }
+  .hero-video-wrap iframe {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+  /* 글씨 영역을 영상 바로 아래로 */
+  .hero-content {
+    position: relative;
+    justify-content: flex-start;
+    padding: 28px 20px 44px;
+  }
+  /* 영상 위에 겹칠 때 쓰던 어두운 박스 효과 제거 — 이제 영상 아래라 불필요 */
+  .hero-text {
+    max-width: 100%;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    box-shadow: none;
+  }
+  /* SCROLL 표시는 흐름 배치와 어울리지 않아 모바일에선 숨김 */
+  .hero-scroll { display: none; }
+}
+
 @media (min-width: 720px) {
   .hero-content { padding: 120px 32px 80px; }
 }
