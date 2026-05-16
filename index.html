@@ -759,7 +759,15 @@ section {
 .vcard-bg::after {
   content: "";
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.85) 100%);
+  background: rgba(0,0,0,0.28);
+  transition: background .2s ease;
+}
+.vcard:hover .vcard-bg::after { background: rgba(0,0,0,0.12); }
+.vcard-frame {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border: 0;
+  display: block;
 }
 .vcard-overlay {
   position: absolute; inset: 0;
@@ -2870,17 +2878,18 @@ const COURSE_GROUPS = [
   },
 ];
 
+/* 영상 그리드 — 유튜브 쇼츠 ID 10개. 매달 이 10개만 갈아끼우면 됩니다. */
 const VIDEOS = [
-  { tag:"DANCE", title:"K-POP 정규반 안무 데모",    meta:"1:48 · 정규 2기",       img:"img/class-dance.jpg" },
-  { tag:"VOCAL", title:"보컬 트레이닝 1:1 세션",    meta:"3:24 · 실용음악반",     img:"img/class-vocal.jpg" },
-  { tag:"STAGE", title:"2024 정기공연 하이라이트",  meta:"5:12 · 예술의전당",     img:"img/stage-art.jpg"  },
-  { tag:"DANCE", title:"키즈 댄스 토요 클래스",      meta:"2:05 · 7~13세",         img:"img/class-stretch.jpg" },
-  { tag:"STAGE", title:"데뷔팀 쇼케이스 무대",       meta:"3:42 · 2025 SHOWCASE",  img:"img/stage-main.jpg" },
-  { tag:"STUDIO",title:"베스트보컬앤댄스 스튜디오 투어",       meta:"1:20 · 시설 안내",      img:"img/studio.jpg"     },
-  { tag:"DANCE", title:"걸스힙합 고급반 코레오",     meta:"2:38 · 코레오 심화",    img:"img/fac/05.jpg" },
-  { tag:"VOCAL", title:"오디션 보컬 클리닉",         meta:"4:02 · 오디션반",       img:"img/fac/03.jpg" },
-  { tag:"STAGE", title:"키즈 데뷔 무대 비하인드",    meta:"2:55 · KIDS SHOWCASE", img:"img/fac/06.jpg" },
-  { tag:"STUDIO",title:"녹음 부스 풀 세션",          meta:"3:10 · 부원장 녹음",    img:"img/fac/04.jpg" },
+  "1BTw4VstW8k",
+  "VTl4DJ6u4yE",
+  "IqbSbIpOk6Y",
+  "rd9IOig94JM",
+  "ettv4sgigDc",
+  "WUssKb-bwQk",
+  "t3keNspGty8",
+  "QXrBe5Toea0",
+  "zWRaKgVo4E4",
+  "5WLto7IRSwY",
 ];
 
 const TEACHERS = [
@@ -3209,28 +3218,55 @@ function Stats() {
   );
 }
 
+function VideoCard({ videoId, index, playing, onPlay }) {
+  return (
+    <div
+      className="vcard reveal"
+      style={{ transitionDelay: `${index*60}ms` }}
+      onClick={onPlay}
+    >
+      {playing ? (
+        <iframe
+          className="vcard-frame"
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&rel=0`}
+          title="베스트보컬&댄스 영상"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowFullScreen
+        />
+      ) : (
+        <>
+          <div
+            className="vcard-bg"
+            style={{ backgroundImage: `url(https://i.ytimg.com/vi/${videoId}/hqdefault.jpg)` }}
+          />
+          <div className="vcard-play">
+            <Icon.Play />
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 function VideoGrid() {
+  const [active, setActive] = useState(null);
   return (
     <section className="parallax-section" data-parallax="class-vocal" data-screen-label="03 Video Grid" id="videos">
       <div className="wrap">
         <div className="sec-head reveal">
-          <div className="sec-eyebrow">CLASS REEL</div>
-          <h2 className="sec-title">현장의 <span className="accent">생생한 클래스</span></h2>
-          <p className="sec-desc">매주 업로드되는 수업 영상. 편집 없는 실시간 클래스의 모습입니다.</p>
+          <div className="sec-eyebrow">STUDIO LIFE</div>
+          <h2 className="sec-title">지금, <span className="accent">베스트보컬&댄스</span>의 하루</h2>
+          <p className="sec-desc">연습실에서, 무대 위에서. 베스트보컬&댄스 학생들의 진짜 하루를 영상으로 만나보세요.</p>
         </div>
         <div className="vgrid">
-          {VIDEOS.map((v, i) => (
-            <div className="vcard reveal" key={i} style={{ transitionDelay: `${i*60}ms` }}>
-              <div className="vcard-bg" style={{ backgroundImage: `url(${v.img})` }} />
-              <div className="vcard-play">
-                <Icon.Play />
-              </div>
-              <div className="vcard-overlay">
-                <span className="vcard-tag">{v.tag}</span>
-                <div className="vcard-title">{v.title}</div>
-                <div className="vcard-meta">{v.meta}</div>
-              </div>
-            </div>
+          {VIDEOS.map((id, i) => (
+            <VideoCard
+              key={id}
+              videoId={id}
+              index={i}
+              playing={active === i}
+              onPlay={() => setActive(i)}
+            />
           ))}
         </div>
       </div>
