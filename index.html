@@ -1895,8 +1895,8 @@ section {
   overflow-y: visible;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding: 56px 0 32px;
-  perspective: 1200px;
+  padding: 32px 0;
+  scroll-snap-type: x proximity;
 }
 .fac-strip::-webkit-scrollbar { display: none; }
 .fac-strip-inner {
@@ -1904,7 +1904,6 @@ section {
   gap: 10px;
   padding: 0 16px;
   align-items: center;
-  transform-style: preserve-3d;
 }
 .fac-thumb {
   flex-shrink: 0;
@@ -1919,6 +1918,7 @@ section {
   padding: 0;
   transition: transform .35s cubic-bezier(.2,.8,.2,1), border-color .2s, box-shadow .35s;
   transform-origin: center;
+  scroll-snap-align: center;
 }
 /* 히트 영역을 카드 위/아래로 확장 — 마우스가 살짝만 근처에 와도 반응 */
 .fac-thumb::before {
@@ -1946,9 +1946,9 @@ section {
   text-shadow: 0 1px 2px rgba(0,0,0,0.6);
 }
 .fac-thumb:hover {
-  transform: perspective(1200px) translateZ(60px) scale(1.18) !important;
+  transform: scale(1.06) !important;
   border-color: rgba(242,201,76,0.6);
-  box-shadow: 0 22px 50px -14px rgba(242,201,76,0.5);
+  box-shadow: 0 16px 36px -14px rgba(242,201,76,0.45);
   z-index: 8;
 }
 .fac-thumb:hover img { filter: brightness(1) saturate(1.05); }
@@ -3477,7 +3477,6 @@ function Facilities() {
         <div className="fac-strip reveal" ref={stripRef}>
           <div className="fac-strip-inner">
             {FACILITY_GALLERY.map((f, i) => {
-              const offset = i - active;
               const isActive = i === active;
               return (
                 <button
@@ -3489,8 +3488,7 @@ function Facilities() {
                     else setActive(i);
                   }}
                   style={{
-                    '--offset': offset,
-                    transform: `perspective(1200px) rotateY(${offset * -8}deg) translateZ(${isActive ? 30 : 0}px) scale(${isActive ? 1.08 : 0.92})`,
+                    transform: `scale(${isActive ? 1.06 : 1})`,
                   }}
                   aria-label={`${f.caption} 보기`}
                 >
@@ -3582,7 +3580,7 @@ function Contact({ tweaks }) {
             </div>
           </div>
           <div className="contact-info">
-            <a href="#" className="contact-row kakao reveal" onClick={(e)=>e.preventDefault()}>
+            <a href="https://pf.kakao.com/_TDxjQxb" target="_blank" rel="noopener noreferrer" className="contact-row kakao reveal">
               <div className="contact-icon"><Icon.KK /></div>
               <div className="contact-text">
                 <div className="contact-label">KAKAOTALK</div>
@@ -3599,7 +3597,7 @@ function Contact({ tweaks }) {
               </div>
               <div className="contact-arrow"><Icon.ChevR /></div>
             </a>
-            <a href="#" className="contact-row reveal" onClick={(e)=>e.preventDefault()}>
+            <a href="https://naver.me/GXAK2nud" target="_blank" rel="noopener noreferrer" className="contact-row reveal">
               <div className="contact-icon"><Icon.Pin /></div>
               <div className="contact-text">
                 <div className="contact-label">LOCATION</div>
