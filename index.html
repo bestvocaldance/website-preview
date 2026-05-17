@@ -122,6 +122,11 @@ section {
   width: auto;
   object-fit: contain;
 }
+.footer-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 .nav-cta {
   display: inline-flex;
   align-items: center;
@@ -3675,7 +3680,12 @@ function Footer({ tweaks }) {
       <div className="wrap">
         <div className="footer-top">
           <div>
-            <img src="img/logo-white.png" alt="베스트보컬&댄스" className="footer-logo-sm" />
+            <div className="footer-brand-row">
+              <img src="img/logo-white.png" alt="베스트보컬&댄스" className="footer-logo-sm" />
+              <div className="footer-brand-large">
+                베스트보컬<span style={{color:'#F2C94C'}}>+</span>댄스
+              </div>
+            </div>
             <p className="footer-tagline" style={{ marginTop: 16 }}>
               매일 무대로 한 발 더. 보컬과 댄스의 모든 것.
             </p>
