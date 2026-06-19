@@ -681,6 +681,119 @@ body.fac-lb-open .nav { display: none; }
   .sec-head { margin-bottom: 56px; }
 }
 
+/* ===== Reviews (네이버 리뷰) ===== */
+.reviews-section {
+  background: linear-gradient(180deg, var(--bg) 0%, #0C0C10 100%);
+  border-top: 1px solid var(--line-soft);
+}
+.naver-badge-wrap { margin-bottom: 32px; }
+.naver-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #03C75A;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+.naver-badge-pill svg { flex-shrink: 0; }
+.rgrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+@media (max-width: 900px) {
+  .rgrid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 540px) {
+  .rgrid { grid-template-columns: 1fr; }
+}
+.rcard {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 22px 20px 20px;
+  transition: border-color .2s ease, transform .2s ease;
+  display: flex;
+  flex-direction: column;
+}
+.rcard:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+.rcard-quote {
+  font-size: 36px;
+  line-height: 1;
+  color: rgba(127,119,221,0.25);
+  font-family: Georgia, serif;
+  margin-bottom: 4px;
+}
+.rcard-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.ravatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3a3460, #5a527a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #c8c3f0;
+  flex-shrink: 0;
+  border: 1px solid rgba(127,119,221,0.3);
+}
+.rcard-meta { flex: 1; }
+.rcard-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg);
+  line-height: 1.2;
+}
+.rcard-platform {
+  font-size: 11px;
+  color: var(--fg-dim);
+  margin-top: 2px;
+}
+.rstars {
+  color: #F2C94C;
+  font-size: 13px;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+.rcard-body {
+  font-size: 13px;
+  color: var(--fg-mute);
+  line-height: 1.7;
+  flex: 1;
+  margin-bottom: 16px;
+}
+.rcard-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+}
+.rtag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(127,119,221,0.1);
+  color: var(--accent);
+  font-weight: 500;
+  border: 1px solid rgba(127,119,221,0.2);
+}
+
 /* ===== Stats (신뢰 숫자) ===== */
 .stats-section {
   background: var(--bg);
@@ -3325,6 +3438,90 @@ function VideoGrid() {
   );
 }
 
+const REVIEWS = [
+  {
+    id: 'cat',
+    name: 'cat****',
+    meta: '네이버 플레이스 · 리뷰 17',
+    body: '매년 두 번씩 소속사 담당자분들을 모시고 공연을 해서 아이돌이 꿈인 아이들에게 많은 기회를 주시더라고요. 일반 학생들이라서 큰기대없이 공연을 봤는데 너무나 잘하는 모습에 체계적으로 잘 가르쳐주시는 것 같아 더더욱 학원에 믿음이 생깁니다.',
+    tags: ['🔥 선생님 열정적', '✅ 맞춤 지도', '📈 수업 체계적'],
+  },
+  {
+    id: 'heather',
+    name: 'Heather7147',
+    meta: '네이버 플레이스',
+    body: '아이가 학원을 다닌 후 너무 즐거워하네요. 선생님들께서 피드백도 잘 주시고 아이에게 맞게 수업을 잘해주셔서 아이에게 동기부여도 잘되고 있어요. 강추×10000%입니다.',
+    tags: ['🔥 선생님 열정적', '✅ 맞춤 지도', '💬 상담 자세해요'],
+  },
+  {
+    id: 'smina',
+    name: 'smina001',
+    meta: '네이버 플레이스 · 리뷰 80',
+    body: '아이가 춤추는 걸 좋아해서 등록했는데 너무 재미있어하네요~~ 원래 밥도 잘 안먹었는데 학원 등록 이후부터 운동량이 많아서인지 밥도 잘 먹어요~~',
+    tags: ['👥 학생과 소통'],
+  },
+  {
+    id: 'wltjd',
+    name: 'wltjd0718',
+    meta: '네이버 플레이스',
+    body: '선생님이 1대1로 잘 가르쳐주셔서 아이도 부모도 만족도가 아주 좋습니다. 항상 신경써주시고 배려해주셔서 아이를 전적으로 맡길 수 있어 좋습니다.',
+    tags: ['🔥 선생님 열정적', '✅ 맞춤 지도', '✨ 시설 깔끔'],
+  },
+  {
+    id: 'wjdd',
+    name: 'wjddmsqls02',
+    meta: '네이버 플레이스 · 리뷰 295',
+    body: '지인 추천으로 다니게 되었어요. 오디션에서 최종합격해서 데뷔까지 이어졌다구요~~ 그만큼 선생님들의 실력이 남다르다는 거겠죠. 아이의 실력도 쭉쭉 늘기를 기대해봅니다♡',
+    tags: ['🔥 선생님 열정적', '👥 학생과 소통', '💬 상담 자세해요'],
+  },
+  {
+    id: 'cecilia',
+    name: '세실리아2542',
+    meta: '네이버 플레이스 · 리뷰 19',
+    body: '아이가 아이돌 꿈을 가지고 있어서 보컬과 춤 레슨을 받기 위해 검색해서 베스트보컬&댄스학원을 찾아와 수업을 시작했어요. 상담도 꼼꼼히 해주시고 아이의 수업 만족도도 높아요. 초보자에게도 적합해요.',
+    tags: ['✨ 시설 깔끔', '🔥 선생님 열정적', '🔰 초보자 적합'],
+  },
+];
+
+function Reviews() {
+  return (
+    <section className="parallax-section reviews-section" data-parallax="class-review" data-screen-label="03-1 Reviews" id="reviews">
+      <div className="wrap">
+        <div className="sec-head reveal">
+          <div className="sec-eyebrow">실수요자 후기</div>
+          <h2 className="sec-title">학부모님들의 <span className="accent">생생한 후기</span></h2>
+          <p className="sec-desc">네이버 플레이스 실 방문자 리뷰 · 별점 5.0</p>
+        </div>
+        <div className="naver-badge-wrap reveal">
+          <span className="naver-badge-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            NAVER Place 리뷰
+          </span>
+        </div>
+        <div className="rgrid">
+          {REVIEWS.map((r, i) => (
+            <div className="rcard reveal" key={r.id} style={{ transitionDelay: `${(i % 3) * 80}ms` }}>
+              <div className="rcard-quote">"</div>
+              <div className="rcard-header">
+                <div className="ravatar">{r.name[0]}</div>
+                <div className="rcard-meta">
+                  <div className="rcard-name">{r.name}</div>
+                  <div className="rcard-platform">{r.meta}</div>
+                </div>
+              </div>
+              <div className="rstars">{'★★★★★'}</div>
+              <p className="rcard-body">{r.body}</p>
+              <div className="rcard-tags">
+                {r.tags.map(t => <span className="rtag" key={t}>{t}</span>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Courses() {
   const total = useMemo(() => COURSE_GROUPS.reduce((s, g) => s + g.items.length, 0), []);
   return (
@@ -3860,6 +4057,7 @@ function App() {
       <Marquee />
       <Stats />
       <VideoGrid />
+      <Reviews />
       <Courses />
       <Facilities />
       <Contact tweaks={tweaks} />
