@@ -3596,30 +3596,9 @@ function Teachers() {
   );
 }
 
-const FACILITY_GALLERY = Array.from({length: 20}, (_, i) => ({
+const FACILITY_GALLERY = Array.from({length: 11}, (_, i) => ({
   src: `img/fac/${String(i+1).padStart(2,'0')}.jpg`,
-  caption: [
-    "전용 댄스 연습실 A",
-    "전용 댄스 연습실 B",
-    "보컬 / 녹음 부스",
-    "포토 / 영상 스튜디오",
-    "정기 공연 & 쇼케이스",
-    "베스트보컬앤댄스 데뷔 무대",
-    "강의실 라운지",
-    "키즈 전용 룸",
-    "오디션 스테이지",
-    "원장 직강 룸",
-    "부원장 직강 룸",
-    "그룹 연습실",
-    "1:1 보컬 룸",
-    "코레오 안무실",
-    "왁킹 전용 스튜디오",
-    "녹음·믹싱 부스",
-    "MR / 음향 콘솔",
-    "백스테이지",
-    "메이크업 라운지",
-    "리셉션 / 입구",
-  ][i] || `시설 ${i+1}`,
+  caption: String(i+1).padStart(3,'0'),
 }));
 
 function Facilities() {
