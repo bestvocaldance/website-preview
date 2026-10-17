@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>상담예약 | 베스트보컬&amp;댄스 BVD STUDIO</title>
+<meta name="description" content="베스트보컬&댄스(BVD STUDIO) 상담예약 — 보컬·댄스·아이돌 오디션반 상담 신청">
+<meta property="og:title" content="상담예약 | 베스트보컬&댄스 BVD STUDIO">
+<meta property="og:description" content="신분당선 상현역 · SM 15년 프로듀서 출신 원장 직강. 상담 신청 후 문자 또는 전화로 연락드립니다.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  /* ===== 설정: 구글 앱스 스크립트 웹앱 주소를 아래에 붙여넣으세요 ===== */
+  :root{
+    --brand:#7F77DD; --brand-2:#a49ef0; --bg:#0d0d14; --card:#16161f; --line:#2a2a38;
+    --text:#f2f2f7; --sub:#a3a3b5; --err:#ff6b7a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--text);
+    font-family:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+    -webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .hero{position:relative;padding:56px 20px 40px;text-align:center;overflow:hidden;
+    background:radial-gradient(120% 90% at 50% 0%,rgba(127,119,221,.45) 0%,rgba(127,119,221,.08) 55%,transparent 80%),var(--bg);
+    border-bottom:1px solid var(--line)}
+  .brand{display:inline-flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.14em;font-size:13px;color:var(--brand-2)}
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--brand);box-shadow:0 0 14px var(--brand)}
+  .hero h1{margin:14px 0 10px;font-size:34px;font-weight:800;letter-spacing:-.02em}
+  .hero p{margin:0;color:var(--sub);font-size:15px;line-height:1.7}
+  .badge{display:inline-block;margin-top:16px;padding:7px 14px;border-radius:999px;border:1px solid rgba(127,119,221,.5);
+    background:rgba(127,119,221,.12);color:#d9d6ff;font-size:13px;font-weight:600}
+  main{max-width:640px;margin:0 auto;padding:28px 16px 40px}
+  .notice{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:14px;
+    padding:16px 18px;font-size:14.5px;line-height:1.75;color:#d8d8e4}
+  .notice b{color:#fff}
+  form{margin-top:22px}
+  .section{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:6px 18px;margin-bottom:16px}
+  .section h2{margin:16px 0 6px;font-size:15px;color:var(--brand-2);font-weight:700;letter-spacing:.02em}
+  .row{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+  .row:last-child{border-bottom:0}
+  .row label.k{font-size:14.5px;font-weight:600;color:#e6e6ef}
+  .req{color:var(--brand-2);margin-left:3px}
+  input[type=text],input[type=tel],select,textarea{width:100%;background:#0f0f17;border:1px solid #33334a;color:var(--text);
+    border-radius:10px;padding:12px 12px;font-size:16px;font-family:inherit;outline:none;transition:border-color .15s, box-shadow .15s}
+  input::placeholder,textarea::placeholder{color:#6d6d82}
+  input:focus,select:focus,textarea:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(127,119,221,.25)}
+  select{appearance:none;-webkit-appearance:none;padding-right:34px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a49ef0' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 12px center}
+  .phone{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:6px;align-items:center}
+  .phone span{color:var(--sub)}
+  .seg{display:flex;gap:8px;flex-wrap:wrap}
+  .seg input{position:absolute;opacity:0;pointer-events:none}
+  .seg label{padding:10px 16px;border-radius:999px;border:1px solid #3a3a52;color:#d0d0de;font-size:14.5px;cursor:pointer;user-select:none}
+  .seg input:checked+label{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:700}
+  .seg input:focus-visible+label{box-shadow:0 0 0 3px rgba(127,119,221,.35)}
+  .slot{display:grid;grid-template-columns:1.3fr 1fr;gap:8px}
+  textarea{min-height:140px;resize:vertical;line-height:1.6}
+  .full{padding:14px 0}
+  .agree{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--sub);line-height:1.6;margin:6px 2px 18px}
+  .agree input{margin-top:3px;width:18px;height:18px;accent-color:var(--brand);flex:none}
+  .agree details{margin-top:4px}
+  .agree summary{cursor:pointer;color:var(--brand-2)}
+  .err{display:none;color:var(--err);font-size:13px;margin-top:6px}
+  .row.invalid .err,.full.invalid .err,.agree.invalid .err{display:block}
+  .row.invalid input,.row.invalid select{border-color:var(--err)}
+  button.submit{width:100%;padding:17px;border:0;border-radius:14px;background:linear-gradient(135deg,#8d85ee,#6a61cf);
+    color:#fff;font-size:17px;font-weight:800;font-family:inherit;cursor:pointer;box-shadow:0 10px 30px rgba(127,119,221,.35)}
+  button.submit:disabled{opacity:.6;cursor:default}
+  .done{display:none;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:40px 20px}
+  .done .ok{width:64px;height:64px;margin:0 auto 14px;border-radius:50%;background:rgba(127,119,221,.18);display:grid;place-items:center;color:var(--brand-2);font-size:30px}
+  .done h2{margin:0 0 10px}
+  .done p{color:var(--sub);line-height:1.7;margin:0}
+  .contact{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .contact a{display:block;text-align:center;text-decoration:none;padding:14px 10px;border-radius:12px;background:var(--card);
+    border:1px solid var(--line);font-size:14px;font-weight:600}
+  .contact a small{display:block;color:var(--sub);font-weight:500;margin-top:3px}
+  footer{text-align:center;color:#6f6f84;font-size:12.5px;line-height:1.8;padding:24px 16px 40px}
+  @media (max-width:420px){
+    .row{grid-template-columns:1fr;gap:8px}
+    .hero h1{font-size:30px}
+  }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="brand"><span class="dot"></span>BEST VOCAL &amp; DANCE · BVD STUDIO</div>
+  <h1>상담예약</h1>
+  <p>베스트보컬&amp;댄스를 찾아주셔서 감사합니다.<br>신청 확인 후 <b>문자 또는 전화</b>로 연락드리겠습니다.</p>
+  <span class="badge">SM 15년 프로듀서 출신 원장 직강 · 신분당선 상현역</span>
+</header>
+
+<main>
+  <div class="notice">
+    ★ <b>아이돌 오디션반</b>은 학부모님과 함께 <b>방문 상담</b>을 원칙으로 합니다.<br>
+    ★ 운영시간: 평일 13:00~22:00 · 토요일 12:00~18:00 (일요일·명절 휴무)
+  </div>
+
+  <form id="f" novalidate>
+    <div class="section">
+      <h2>기본 정보</h2>
+      <div class="row" data-k="name">
+        <label class="k" for="name">이름<span class="req">*</span></label>
+        <div><input id="name" name="name" type="text" autocomplete="name" placeholder="학생 이름" maxlength="30">
+          <div class="err">이름을 입력해 주세요.</div></div>
+      </div>
+      <div class="row">
+        <span class="k" style="font-size:14.5px;font-weight:600">성별</span>
+        <div class="seg">
+          <input type="radio" id="g1" name="gender" value="여자" checked><label for="g1">여자</label>
+          <input type="radio" id="g2" name="gender" value="남자"><label for="g2">남자</label>
+        </div>
+      </div>
+      <div class="row" data-k="phone">
+        <label class="k" for="p1">연락처<span class="req">*</span></label>
+        <div>
+          <div class="phone">
+            <input id="p1" type="tel" inputmode="numeric" maxlength="3" value="010" aria-label="전화번호 앞자리">
+            <span>-</span>
+            <input id="p2" type="tel" inputmode="numeric" maxlength="4" aria-label="전화번호 가운데">
+            <span>-</span>
+            <input id="p3" type="tel" inputmode="numeric" maxlength="4" aria-label="전화번호 끝자리">
+          </div>
+          <div class="err">연락 가능한 전화번호를 정확히 입력해 주세요.</div>
+        </div>
+      </div>
+      <div class="row" data-k="age">
+        <label class="k" for="age">나이<span class="req">*</span></label>
+        <div><select id="age" name="age"></select><div class="err">나이를 선택해 주세요.</div></div>
+      </div>
+      <div class="row">
+        <label class="k" for="area">사는 곳 / 학교</label>
+        <input id="area" name="area" type="text" placeholder="예) 수지구 상현동 / 상현중학교" maxlength="60">
+      </div>
+      <div class="row">
+        <label class="k" for="source">알게 된 경로</label>
+        <select id="source" name="source">
+          <option value="">선택해 주세요</option>
+          <option>인스타그램</option><option>인스타 광고</option><option>유튜브</option>
+          <option>네이버 검색 / 플레이스</option><option>블로그</option><option>지인 추천</option><option>기타</option>
+        </select>
+      </div>
+      <div class="row" data-k="course">
+        <span class="k" style="font-size:14.5px;font-weight:600">관심 과목<span class="req">*</span></span>
+        <div>
+          <div class="seg" id="courses">
+            <input type="checkbox" id="c1" value="아이돌 오디션반"><label for="c1">아이돌 오디션반</label>
+            <input type="checkbox" id="c2" value="보컬"><label for="c2">보컬</label>
+            <input type="checkbox" id="c3" value="댄스"><label for="c3">댄스</label>
+            <input type="checkbox" id="c4" value="키즈"><label for="c4">키즈</label>
+            <input type="checkbox" id="c5" value="성인반"><label for="c5">성인반</label>
+            <input type="checkbox" id="c6" value="입시"><label for="c6">입시</label>
+          </div>
+          <div class="err">관심 과목을 하나 이상 선택해 주세요.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>방문 상담 희망 시간</h2>
+      <div class="row" data-k="slot1">
+        <span class="k" style="font-size:14.5px;font-weight:600">1순위<span class="req">*</span></span>
+        <div><div class="slot"><select id="d1" aria-label="1순위 날짜"></select><select id="t1" aria-label="1순위 시간"></select></div>
+          <div class="err">1순위 날짜와 시간을 선택해 주세요.</div></div>
+      </div>
+      <div class="row">
+        <span class="k" style="font-size:14.5px;font-weight:600">2순위</span>
+        <div class="slot"><select id="d2" aria-label="2순위 날짜"></select><select id="t2" aria-label="2순위 시간"></select></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>상담받고 싶은 내용</h2>
+      <div class="full">
+        <textarea id="memo" name="memo" maxlength="1000" placeholder="예) 아이돌 오디션 준비를 처음 시작하려고 합니다. 주 몇 회 수업이 좋을까요?"></textarea>
+      </div>
+    </div>
+
+    <div class="agree" data-k="agree">
+      <input type="checkbox" id="agree">
+      <div>
+        <label for="agree"><b style="color:#e6e6ef">개인정보 수집·이용에 동의합니다.</b> (필수)</label>
+        <details>
+          <summary>내용 보기</summary>
+          수집 항목: 이름, 성별, 연락처, 나이, 사는 곳/학교, 상담 희망 내용<br>
+          이용 목적: 상담 연락 및 수업 안내<br>
+          보관 기간: 상담 완료 후 1년 (요청 시 즉시 삭제)<br>
+          만 14세 미만은 보호자 동의 후 신청해 주세요.
+        </details>
+        <div class="err">개인정보 수집·이용에 동의해 주세요.</div>
+      </div>
+    </div>
+
+    <input type="text" id="hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+    <button class="submit" type="submit" id="btn">상담 신청하기</button>
+  </form>
+
+  <div class="done" id="done">
+    <div class="ok">✓</div>
+    <h2>상담 신청이 접수되었습니다</h2>
+    <p>확인 후 빠르게 문자 또는 전화로 연락드리겠습니다.<br>급하신 경우 아래 번호로 전화 주세요.</p>
+  </div>
+
+  <div class="contact">
+    <a href="tel:0312157770">📞 전화 상담<small>031-215-7770 / 7772</small></a>
+    <a href="https://www.instagram.com/bestvocalndance" target="_blank" rel="noopener">💬 인스타 DM<small>@bestvocalndance</small></a>
+  </div>
+</main>
+
+<footer>
+  베스트보컬&amp;댄스 BVD STUDIO · 신분당선 상현역<br>
+  © BVD STUDIO
+</footer>
+
+<script>
+/* ★ 구글 앱스 스크립트 웹앱 배포 후 받은 주소를 아래 따옴표 안에 붙여넣으세요 */
+const ENDPOINT = "https://script.google.com/macros/s/AKfycby8TbocbUpBv8GifKvuHxZaSdu9RajMHPZH2oWxEZK0SmXjqLUSVhCqkLUfGt-FH8SH/exec";
+
+const $ = s => document.querySelector(s);
+
+// 나이
+(() => {
+  const s = $('#age');
+  s.innerHTML = '<option value="">선택</option>' +
+    Array.from({length:12},(_,i)=>i+8).map(a=>`<option value="${a}">${a}세</option>`).join('') +
+    '<option value="20세 이상">20세 이상</option><option value="학부모 문의">학부모 문의</option>';
+})();
+
+// 날짜/시간 (일요일 제외, 평일 13~22시, 토 12~18시)
+const W = ['일','월','화','수','목','금','토'];
+function dateOptions(){
+  const out = ['<option value="">날짜 선택</option>'];
+  const d = new Date(); d.setHours(0,0,0,0);
+  for(let i=0, n=0; n<21 && i<40; i++){
+    const x = new Date(d); x.setDate(d.getDate()+i);
+    if (x.getDay()===0) continue;
+    const v = `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`;
+    out.push(`<option value="${v}" data-dow="${x.getDay()}">${x.getMonth()+1}월 ${x.getDate()}일 (${W[x.getDay()]})${i===0?' 오늘':''}</option>`);
+    n++;
+  }
+  return out.join('');
+}
+function timeOptions(dow){
+  if (dow==null || dow==='') return '<option value="">시간 선택</option>';
+  const [s,e] = (+dow===6) ? [12,18] : [13,22];
+  const o=['<option value="">시간 선택</option>'];
+  for(let h=s; h<e; h++) o.push(`<option value="${h}:00~${h+1}:00">${h}:00 ~ ${h+1}:00</option>`);
+  return o.join('');
+}
+['1','2'].forEach(k=>{
+  const ds=$('#d'+k), ts=$('#t'+k);
+  ds.innerHTML=dateOptions(); ts.innerHTML=timeOptions();
+  ds.addEventListener('change',()=>{ ts.innerHTML=timeOptions(ds.selectedOptions[0]?.dataset.dow); });
+});
+
+// 전화번호 자동 이동
+['#p1','#p2','#p3'].forEach((id,i,arr)=>{
+  const el=$(id);
+  el.addEventListener('input',()=>{ el.value=el.value.replace(/\D/g,''); if(el.value.length>=el.maxLength && arr[i+1]) $(arr[i+1]).focus(); });
+});
+
+function label(sel){ const o=$(sel).selectedOptions[0]; return o && o.value ? o.textContent : ''; }
+function setErr(k,bad){ const r=document.querySelector(`[data-k="${k}"]`); if(r) r.classList.toggle('invalid',bad); return bad; }
+
+$('#f').addEventListener('submit', async (ev)=>{
+  ev.preventDefault();
+  if ($('#hp').value) return; // 스팸 방지
+  const phone = [$('#p1').value,$('#p2').value,$('#p3').value].join('-');
+  const courses = [...document.querySelectorAll('#courses input:checked')].map(c=>c.value);
+  let bad = false;
+  bad = setErr('name', !$('#name').value.trim()) || bad;
+  bad = setErr('phone', !/^01\d-\d{3,4}-\d{4}$/.test(phone)) || bad;
+  bad = setErr('age', !$('#age').value) || bad;
+  bad = setErr('course', courses.length===0) || bad;
+  bad = setErr('slot1', !$('#d1').value || !$('#t1').value) || bad;
+  bad = setErr('agree', !$('#agree').checked) || bad;
+  if (bad){ document.querySelector('.invalid')?.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+
+  const data = {
+    name: $('#name').value.trim(),
+    gender: document.querySelector('input[name=gender]:checked').value,
+    phone, age: $('#age').value,
+    area: $('#area').value.trim(),
+    source: $('#source').value,
+    courses: courses.join(', '),
+    slot1: `${label('#d1')} ${$('#t1').value}`,
+    slot2: $('#d2').value && $('#t2').value ? `${label('#d2')} ${$('#t2').value}` : '',
+    memo: $('#memo').value.trim(),
+    page: location.href,
+    ua: navigator.userAgent.slice(0,120)
+  };
+
+  const btn=$('#btn'); btn.disabled=true; btn.textContent='접수 중...';
+  try{
+    await fetch(ENDPOINT, { method:'POST', mode:'no-cors', body: new URLSearchParams(data) });
+    $('#f').style.display='none'; $('.notice').style.display='none';
+    $('#done').style.display='block'; window.scrollTo({top:0,behavior:'smooth'});
+  }catch(e){
+    btn.disabled=false; btn.textContent='상담 신청하기';
+    alert('접수 중 문제가 생겼습니다. 031-215-7770으로 전화 주시면 바로 안내해 드리겠습니다.');
+  }
+});
+</script>
+</body>
+</html>
