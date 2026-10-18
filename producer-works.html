@@ -38,27 +38,31 @@
     border-left:4px solid var(--brand);border-radius:14px;padding:18px 20px;font-size:15px;line-height:1.85;color:#d8d8e4}
   .intro b{color:#fff}
   main{max-width:1080px;margin:0 auto;padding:56px 16px 24px}
-  .sec-head{text-align:center;margin-bottom:34px}
-  .sec-head small{display:block;letter-spacing:.2em;font-size:12px;font-weight:800;color:var(--brand-2)}
-  .sec-head h2{margin:10px 0 0;font-size:26px;letter-spacing:-.02em}
-  .year{position:relative;display:grid;grid-template-columns:120px 1fr;gap:20px;padding:30px 0;border-top:1px solid var(--line)}
-  .ylabel{position:sticky;top:74px;align-self:start}
-  .ynum{display:block;font-size:44px;font-weight:800;letter-spacing:-.04em;line-height:1;
+  .sec-head{text-align:center;margin-bottom:38px}
+  .sec-head small{display:block;letter-spacing:.14em;font-size:13px;font-weight:800;color:var(--brand-2)}
+  .sec-head h2.range{font-size:clamp(40px,9vw,72px);font-weight:800;letter-spacing:-.04em;line-height:1;margin:14px 0 0;
     background:linear-gradient(160deg,#fff,#a49ef0 70%,#7F77DD);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .ycount{display:block;margin-top:8px;font-size:11px;letter-spacing:.16em;color:var(--sub);font-weight:700}
-  .albums{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:22px 16px}
+  .sec-head h2.range span{font-weight:300;opacity:.7;padding:0 .12em}
+  .albums{display:grid;grid-template-columns:repeat(4,1fr);gap:26px 18px}
   .card{margin:0}
   .cover{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:1/1;background:var(--card);
     box-shadow:0 10px 26px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.06);transition:transform .3s ease,box-shadow .3s ease}
   .cover img{display:block;width:100%;height:100%;object-fit:cover}
-  .cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(127,119,221,.22));opacity:0;transition:opacity .3s}
+  .cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(127,119,221,.22));opacity:0;transition:opacity .3s;pointer-events:none}
   .card:hover .cover{transform:translateY(-5px);box-shadow:0 18px 36px rgba(127,119,221,.3),0 0 0 1px rgba(164,158,240,.5)}
   .card:hover .cover::after{opacity:1}
+  .yr{position:absolute;left:8px;top:8px;z-index:2;padding:3px 9px;border-radius:999px;font-size:11.5px;font-weight:800;letter-spacing:.04em;
+    background:rgba(13,13,20,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;border:1px solid rgba(255,255,255,.18)}
   figcaption{padding:11px 2px 0}
   .artist{display:block;font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--brand-2);text-transform:uppercase}
   .title{display:block;margin-top:3px;font-size:15px;font-weight:700;line-height:1.35;color:#fff}
   .meta{display:block;margin-top:4px;font-size:12.5px;color:var(--sub)}
-  .cta{max-width:720px;margin:36px auto 0;text-align:center;padding:44px 20px;border-radius:22px;border:1px solid rgba(127,119,221,.4);
+  .more{grid-column:1/-1;text-align:center;padding:34px 20px;border-radius:18px;border:1px dashed rgba(164,158,240,.5);
+    background:radial-gradient(100% 140% at 50% 0%,rgba(127,119,221,.16),transparent 70%)}
+  .more-tag{display:block;font-size:11.5px;font-weight:800;letter-spacing:.22em;color:var(--brand-2)}
+  .more b{display:block;margin-top:8px;font-size:22px;letter-spacing:-.02em}
+  .more p{margin:10px 0 0;color:var(--sub);font-size:14.5px;line-height:1.75}
+  .cta{max-width:720px;margin:44px auto 0;text-align:center;padding:44px 20px;border-radius:22px;border:1px solid rgba(127,119,221,.4);
     background:radial-gradient(100% 120% at 50% 0%,rgba(127,119,221,.28),rgba(127,119,221,.04) 70%),var(--card)}
   .cta h3{margin:0 0 8px;font-size:22px;letter-spacing:-.02em}
   .cta p{margin:0 0 22px;color:var(--sub);font-size:14.5px;line-height:1.7}
@@ -69,12 +73,11 @@
   .js .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
   .js .reveal.in{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){.js .reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
-  @media (max-width:720px){
-    .year{grid-template-columns:1fr;gap:14px;padding:24px 0}
-    .ylabel{position:static;display:flex;align-items:baseline;gap:12px}
-    .ynum{font-size:38px} .ycount{margin:0}
+  @media (max-width:900px){.albums{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:640px){
     .albums{grid-template-columns:repeat(2,1fr);gap:20px 12px}
     .hero{padding:56px 18px 44px}
+    main{padding-top:44px}
   }
 </style>
 </head>
@@ -101,160 +104,102 @@
 </section>
 
 <main>
-  <div class="sec-head"><small>WORKS</small><h2>연도별 참여 국내앨범</h2></div>
-    <section class="year" aria-label="2000년">
-      <div class="ylabel reveal"><span class="ynum">2000</span><span class="ycount">2 ALBUMS</span></div>
-      <div class="albums">
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/boa-id-peace-b.jpg" width="480" height="480" loading="lazy" alt="BoA ID; Peace B 앨범 커버"></div>
-          <figcaption><span class="artist">BoA</span><span class="title">ID; Peace B</span><span class="meta">2000 . 08</span></figcaption>
-        </figure>
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/ses-greenland.jpg" width="480" height="480" loading="lazy" alt="S.E.S. A Letter from Greenland 앨범 커버"></div>
-          <figcaption><span class="artist">S.E.S.</span><span class="title">A Letter from Greenland</span><span class="meta">2000 . 12 · 4집</span></figcaption>
-        </figure>
+  <div class="sec-head"><small>연도별 참여 국내앨범</small><h2 class="range">2000 <span>—</span> 2015</h2></div>
+    <div class="albums">
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/boa-id-peace-b.jpg" width="480" height="480" loading="lazy" alt="BoA ID; Peace B 앨범 커버"><span class="yr">2000</span></div>
+        <figcaption><span class="artist">BoA</span><span class="title">ID; Peace B</span><span class="meta">2000 . 08</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/ses-greenland.jpg" width="480" height="480" loading="lazy" alt="S.E.S. A Letter from Greenland 앨범 커버"><span class="yr">2000</span></div>
+        <figcaption><span class="artist">S.E.S.</span><span class="title">A Letter from Greenland</span><span class="meta">2000 . 12 · 4집</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/shinhwa-5.jpg" width="480" height="480" loading="lazy" alt="SHINHWA Perfect Man 앨범 커버"><span class="yr">2002</span></div>
+        <figcaption><span class="artist">SHINHWA</span><span class="title">Perfect Man</span><span class="meta">2002 . 03 · 5집</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/shinhwa-6.jpg" width="480" height="480" loading="lazy" alt="SHINHWA SHINHWA 6 앨범 커버"><span class="yr">2002</span></div>
+        <figcaption><span class="artist">SHINHWA</span><span class="title">SHINHWA 6</span><span class="meta">2002 . 12 · 6집</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/boa-atlantis-princess.jpg" width="480" height="480" loading="lazy" alt="BoA Atlantis Princess 앨범 커버"><span class="yr">2003</span></div>
+        <figcaption><span class="artist">BoA</span><span class="title">Atlantis Princess</span><span class="meta">2003 . 05</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/boa-my-name.jpg" width="480" height="480" loading="lazy" alt="BoA My Name 앨범 커버"><span class="yr">2004</span></div>
+        <figcaption><span class="artist">BoA</span><span class="title">My Name</span><span class="meta">2004 . 06</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/superjunior-05.jpg" width="480" height="480" loading="lazy" alt="SUPER JUNIOR Super Junior 05 앨범 커버"><span class="yr">2005</span></div>
+        <figcaption><span class="artist">SUPER JUNIOR</span><span class="title">Super Junior 05</span><span class="meta">2005 . 12 · 1집</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/summer-smtown-2006.jpg" width="480" height="480" loading="lazy" alt="SMTOWN Summer SMTOWN ’06 앨범 커버"><span class="yr">2006</span></div>
+        <figcaption><span class="artist">SMTOWN</span><span class="title">Summer SMTOWN ’06</span><span class="meta">2006</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/superjunior-u.jpg" width="480" height="480" loading="lazy" alt="SUPER JUNIOR U 앨범 커버"><span class="yr">2006</span></div>
+        <figcaption><span class="artist">SUPER JUNIOR</span><span class="title">U</span><span class="meta">2006 . 06 · 싱글</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/tvxq-o.jpg" width="480" height="480" loading="lazy" alt="TVXQ 동방신기 “O”-正.反.合. 앨범 커버"><span class="yr">2006</span></div>
+        <figcaption><span class="artist">TVXQ 동방신기</span><span class="title">“O”-正.反.合.</span><span class="meta">2006 . 09 · 3집</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/superjunior-2.jpg" width="480" height="480" loading="lazy" alt="SUPER JUNIOR Don’t Don 앨범 커버"><span class="yr">2007</span></div>
+        <figcaption><span class="artist">SUPER JUNIOR</span><span class="title">Don’t Don</span><span class="meta">2007 . 09 · 2집</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/winter-smtown-2007.jpg" width="480" height="480" loading="lazy" alt="SMTOWN Only Love 앨범 커버"><span class="yr">2007</span></div>
+        <figcaption><span class="artist">SMTOWN</span><span class="title">Only Love</span><span class="meta">2007 . 12 · 2007 Winter SMTOWN</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/snsd-baby-baby.jpg" width="480" height="480" loading="lazy" alt="GIRLS’ GENERATION Baby Baby 앨범 커버"><span class="yr">2008</span></div>
+        <figcaption><span class="artist">GIRLS’ GENERATION</span><span class="title">Baby Baby</span><span class="meta">2008 . 03 · 1집 리패키지</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/shinee-replay.jpg" width="480" height="480" loading="lazy" alt="SHINee Replay 앨범 커버"><span class="yr">2008</span></div>
+        <figcaption><span class="artist">SHINee</span><span class="title">Replay</span><span class="meta">2008 . 05 · 1st Mini Album</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/shinee-world.jpg" width="480" height="480" loading="lazy" alt="SHINee The SHINee World 앨범 커버"><span class="yr">2008</span></div>
+        <figcaption><span class="artist">SHINee</span><span class="title">The SHINee World</span><span class="meta">2008 . 08 · 1집</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/tvxq-mirotic.jpg" width="480" height="480" loading="lazy" alt="TVXQ 동방신기 Mirotic 앨범 커버"><span class="yr">2008</span></div>
+        <figcaption><span class="artist">TVXQ 동방신기</span><span class="title">Mirotic</span><span class="meta">2008 . 09 · 4집</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/snsd-genie.jpg" width="480" height="480" loading="lazy" alt="GIRLS’ GENERATION Genie (소원을 말해봐) 앨범 커버"><span class="yr">2009</span></div>
+        <figcaption><span class="artist">GIRLS’ GENERATION</span><span class="title">Genie (소원을 말해봐)</span><span class="meta">2009 . 06 · 미니 2집</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/sm-the-ballad-1.jpg" width="480" height="480" loading="lazy" alt="S.M. THE BALLAD 너무 그리워 앨범 커버"><span class="yr">2010</span></div>
+        <figcaption><span class="artist">S.M. THE BALLAD</span><span class="title">너무 그리워</span><span class="meta">2010 . 11 · Vol.1</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/superjunior-mr-simple.jpg" width="480" height="480" loading="lazy" alt="SUPER JUNIOR Mr. Simple 앨범 커버"><span class="yr">2011</span></div>
+        <figcaption><span class="artist">SUPER JUNIOR</span><span class="title">Mr. Simple</span><span class="meta">2011 . 08 · 5집</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/snsd-the-boys.jpg" width="480" height="480" loading="lazy" alt="GIRLS’ GENERATION The Boys 앨범 커버"><span class="yr">2011</span></div>
+        <figcaption><span class="artist">GIRLS’ GENERATION</span><span class="title">The Boys</span><span class="meta">2011 . 10 · 3집</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/zhang-liyin-not-alone.jpg" width="480" height="480" loading="lazy" alt="ZHANG LI YIN 张力尹 我一个人 (Not Alone) 앨범 커버"><span class="yr">2014</span></div>
+        <figcaption><span class="artist">ZHANG LI YIN 张力尹</span><span class="title">我一个人 (Not Alone)</span><span class="meta">2014</span></figcaption>
+      </figure>
+      <figure class="card reveal">
+        <div class="cover"><img src="/img/works/superjunior-devil.jpg" width="480" height="480" loading="lazy" alt="SUPER JUNIOR DEVIL 앨범 커버"><span class="yr">2015</span></div>
+        <figcaption><span class="artist">SUPER JUNIOR</span><span class="title">DEVIL</span><span class="meta">2015 . 07 · Special Album</span></figcaption>
+      </figure>
+      <div class="more reveal">
+        <span class="more-tag">AND MORE</span>
+        <b>그 외 앨범들</b>
+        <p>그 외 수많은 SM 국내외 앨범 녹음에서<br>‘보컬 디렉터’로 활동했습니다.</p>
       </div>
-    </section>
-    <section class="year" aria-label="2002년">
-      <div class="ylabel reveal"><span class="ynum">2002</span><span class="ycount">2 ALBUMS</span></div>
-      <div class="albums">
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/shinhwa-5.jpg" width="480" height="480" loading="lazy" alt="SHINHWA Perfect Man 앨범 커버"></div>
-          <figcaption><span class="artist">SHINHWA</span><span class="title">Perfect Man</span><span class="meta">2002 . 03 · 5집</span></figcaption>
-        </figure>
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/shinhwa-6.jpg" width="480" height="480" loading="lazy" alt="SHINHWA SHINHWA 6 앨범 커버"></div>
-          <figcaption><span class="artist">SHINHWA</span><span class="title">SHINHWA 6</span><span class="meta">2002 . 12 · 6집</span></figcaption>
-        </figure>
-      </div>
-    </section>
-    <section class="year" aria-label="2003년">
-      <div class="ylabel reveal"><span class="ynum">2003</span><span class="ycount">1 ALBUM</span></div>
-      <div class="albums">
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/boa-atlantis-princess.jpg" width="480" height="480" loading="lazy" alt="BoA Atlantis Princess 앨범 커버"></div>
-          <figcaption><span class="artist">BoA</span><span class="title">Atlantis Princess</span><span class="meta">2003 . 05</span></figcaption>
-        </figure>
-      </div>
-    </section>
-    <section class="year" aria-label="2004년">
-      <div class="ylabel reveal"><span class="ynum">2004</span><span class="ycount">1 ALBUM</span></div>
-      <div class="albums">
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/boa-my-name.jpg" width="480" height="480" loading="lazy" alt="BoA My Name 앨범 커버"></div>
-          <figcaption><span class="artist">BoA</span><span class="title">My Name</span><span class="meta">2004 . 06</span></figcaption>
-        </figure>
-      </div>
-    </section>
-    <section class="year" aria-label="2005년">
-      <div class="ylabel reveal"><span class="ynum">2005</span><span class="ycount">1 ALBUM</span></div>
-      <div class="albums">
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/superjunior-05.jpg" width="480" height="480" loading="lazy" alt="SUPER JUNIOR Super Junior 05 앨범 커버"></div>
-          <figcaption><span class="artist">SUPER JUNIOR</span><span class="title">Super Junior 05</span><span class="meta">2005 . 12 · 1집</span></figcaption>
-        </figure>
-      </div>
-    </section>
-    <section class="year" aria-label="2006년">
-      <div class="ylabel reveal"><span class="ynum">2006</span><span class="ycount">3 ALBUMS</span></div>
-      <div class="albums">
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/summer-smtown-2006.jpg" width="480" height="480" loading="lazy" alt="SMTOWN Summer SMTOWN ’06 앨범 커버"></div>
-          <figcaption><span class="artist">SMTOWN</span><span class="title">Summer SMTOWN ’06</span><span class="meta">2006</span></figcaption>
-        </figure>
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/superjunior-u.jpg" width="480" height="480" loading="lazy" alt="SUPER JUNIOR U 앨범 커버"></div>
-          <figcaption><span class="artist">SUPER JUNIOR</span><span class="title">U</span><span class="meta">2006 . 06 · 싱글</span></figcaption>
-        </figure>
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/tvxq-o.jpg" width="480" height="480" loading="lazy" alt="TVXQ 동방신기 “O”-正.反.合. 앨범 커버"></div>
-          <figcaption><span class="artist">TVXQ 동방신기</span><span class="title">“O”-正.反.合.</span><span class="meta">2006 . 09 · 3집</span></figcaption>
-        </figure>
-      </div>
-    </section>
-    <section class="year" aria-label="2007년">
-      <div class="ylabel reveal"><span class="ynum">2007</span><span class="ycount">2 ALBUMS</span></div>
-      <div class="albums">
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/superjunior-2.jpg" width="480" height="480" loading="lazy" alt="SUPER JUNIOR Don’t Don 앨범 커버"></div>
-          <figcaption><span class="artist">SUPER JUNIOR</span><span class="title">Don’t Don</span><span class="meta">2007 . 09 · 2집</span></figcaption>
-        </figure>
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/winter-smtown-2007.jpg" width="480" height="480" loading="lazy" alt="SMTOWN Only Love 앨범 커버"></div>
-          <figcaption><span class="artist">SMTOWN</span><span class="title">Only Love</span><span class="meta">2007 . 12 · 2007 Winter SMTOWN</span></figcaption>
-        </figure>
-      </div>
-    </section>
-    <section class="year" aria-label="2008년">
-      <div class="ylabel reveal"><span class="ynum">2008</span><span class="ycount">4 ALBUMS</span></div>
-      <div class="albums">
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/snsd-baby-baby.jpg" width="480" height="480" loading="lazy" alt="GIRLS’ GENERATION Baby Baby 앨범 커버"></div>
-          <figcaption><span class="artist">GIRLS’ GENERATION</span><span class="title">Baby Baby</span><span class="meta">2008 . 03 · 1집 리패키지</span></figcaption>
-        </figure>
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/shinee-replay.jpg" width="480" height="480" loading="lazy" alt="SHINee Replay 앨범 커버"></div>
-          <figcaption><span class="artist">SHINee</span><span class="title">Replay</span><span class="meta">2008 . 05 · 1st Mini Album</span></figcaption>
-        </figure>
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/shinee-world.jpg" width="480" height="480" loading="lazy" alt="SHINee The SHINee World 앨범 커버"></div>
-          <figcaption><span class="artist">SHINee</span><span class="title">The SHINee World</span><span class="meta">2008 . 08 · 1집</span></figcaption>
-        </figure>
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/tvxq-mirotic.jpg" width="480" height="480" loading="lazy" alt="TVXQ 동방신기 Mirotic 앨범 커버"></div>
-          <figcaption><span class="artist">TVXQ 동방신기</span><span class="title">Mirotic</span><span class="meta">2008 . 09 · 4집</span></figcaption>
-        </figure>
-      </div>
-    </section>
-    <section class="year" aria-label="2009년">
-      <div class="ylabel reveal"><span class="ynum">2009</span><span class="ycount">1 ALBUM</span></div>
-      <div class="albums">
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/snsd-genie.jpg" width="480" height="480" loading="lazy" alt="GIRLS’ GENERATION Genie (소원을 말해봐) 앨범 커버"></div>
-          <figcaption><span class="artist">GIRLS’ GENERATION</span><span class="title">Genie (소원을 말해봐)</span><span class="meta">2009 . 06 · 미니 2집</span></figcaption>
-        </figure>
-      </div>
-    </section>
-    <section class="year" aria-label="2010년">
-      <div class="ylabel reveal"><span class="ynum">2010</span><span class="ycount">1 ALBUM</span></div>
-      <div class="albums">
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/sm-the-ballad-1.jpg" width="480" height="480" loading="lazy" alt="S.M. THE BALLAD 너무 그리워 앨범 커버"></div>
-          <figcaption><span class="artist">S.M. THE BALLAD</span><span class="title">너무 그리워</span><span class="meta">2010 . 11 · Vol.1</span></figcaption>
-        </figure>
-      </div>
-    </section>
-    <section class="year" aria-label="2011년">
-      <div class="ylabel reveal"><span class="ynum">2011</span><span class="ycount">2 ALBUMS</span></div>
-      <div class="albums">
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/superjunior-mr-simple.jpg" width="480" height="480" loading="lazy" alt="SUPER JUNIOR Mr. Simple 앨범 커버"></div>
-          <figcaption><span class="artist">SUPER JUNIOR</span><span class="title">Mr. Simple</span><span class="meta">2011 . 08 · 5집</span></figcaption>
-        </figure>
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/snsd-the-boys.jpg" width="480" height="480" loading="lazy" alt="GIRLS’ GENERATION The Boys 앨범 커버"></div>
-          <figcaption><span class="artist">GIRLS’ GENERATION</span><span class="title">The Boys</span><span class="meta">2011 . 10 · 3집</span></figcaption>
-        </figure>
-      </div>
-    </section>
-    <section class="year" aria-label="2014년">
-      <div class="ylabel reveal"><span class="ynum">2014</span><span class="ycount">1 ALBUM</span></div>
-      <div class="albums">
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/zhang-liyin-not-alone.jpg" width="480" height="480" loading="lazy" alt="ZHANG LI YIN 张力尹 我一个人 (Not Alone) 앨범 커버"></div>
-          <figcaption><span class="artist">ZHANG LI YIN 张力尹</span><span class="title">我一个人 (Not Alone)</span><span class="meta">2014</span></figcaption>
-        </figure>
-      </div>
-    </section>
-    <section class="year" aria-label="2015년">
-      <div class="ylabel reveal"><span class="ynum">2015</span><span class="ycount">1 ALBUM</span></div>
-      <div class="albums">
-        <figure class="card reveal">
-          <div class="cover"><img src="/img/works/superjunior-devil.jpg" width="480" height="480" loading="lazy" alt="SUPER JUNIOR DEVIL 앨범 커버"></div>
-          <figcaption><span class="artist">SUPER JUNIOR</span><span class="title">DEVIL</span><span class="meta">2015 . 07 · Special Album</span></figcaption>
-        </figure>
-      </div>
-    </section>
+    </div>
 
   <div class="cta reveal">
     <h3>이 무대의 노하우를, 우리 아이에게</h3>
