@@ -1658,6 +1658,47 @@ body.fac-lb-open .nav { display: none; }
   background: linear-gradient(180deg, transparent 60%, rgba(127,119,221,0.45) 60%);
   padding: 0 2px;
 }
+.founder-cta {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 16px;
+  padding: 17px 24px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #8d85ee, #6a61cf);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  box-shadow: 0 10px 30px rgba(127,119,221,0.5), inset 0 1px 0 rgba(255,255,255,0.25);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.founder-cta svg { width: 20px; height: 20px; flex-shrink: 0; }
+.founder-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(127,119,221,0.65), inset 0 1px 0 rgba(255,255,255,0.25);
+}
+.founder-cta::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -60%;
+  width: 40%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: skewX(-20deg);
+  animation: founderShine 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes founderShine {
+  0%, 55% { left: -60%; }
+  100% { left: 130%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .founder-cta::after { animation: none; display: none; }
+}
 .founder-decor {
   display: none;
   flex-shrink: 0;
@@ -1669,6 +1710,7 @@ body.fac-lb-open .nav { display: none; }
   .founder-mark { width: 88px; height: 88px; }
   .founder-mark-num { font-size: 34px; }
   .founder-headline { font-size: 22px; }
+  .founder-cta { display: inline-flex; width: auto; font-size: 19px; padding: 19px 38px; margin-top: 20px; }
   .founder-decor { display: block; }
 }
 @media (min-width: 1024px) {
@@ -3334,6 +3376,9 @@ function FounderBadge() {
               <span className="founder-em">SM 엔터테인먼트 15년 전속 프로듀서</span>
               <br />원장이 <span className="founder-underline">직접 운영</span>합니다
             </div>
+            <a href="/producer-works.html" className="founder-cta">
+              {"Producer's Works"} <Icon.Arrow />
+            </a>
           </div>
           <div className="founder-decor" aria-hidden="true">
             <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
