@@ -1666,7 +1666,6 @@ body.fac-lb-open .nav { display: none; }
   justify-content: center;
   gap: 10px;
   width: 100%;
-  margin-top: 16px;
   padding: 17px 24px;
   border-radius: 999px;
   background: linear-gradient(135deg, #8d85ee, #6a61cf);
@@ -1676,6 +1675,20 @@ body.fac-lb-open .nav { display: none; }
   letter-spacing: -0.01em;
   box-shadow: 0 10px 30px rgba(127,119,221,0.5), inset 0 1px 0 rgba(255,255,255,0.25);
   transition: transform .15s ease, box-shadow .15s ease;
+}
+.founder-cta-row {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  margin-top: 16px;
+}
+.founder-cta-note {
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--fg-dim);
 }
 .founder-cta svg { width: 20px; height: 20px; flex-shrink: 0; }
 .founder-cta:hover {
@@ -1710,7 +1723,9 @@ body.fac-lb-open .nav { display: none; }
   .founder-mark { width: 88px; height: 88px; }
   .founder-mark-num { font-size: 34px; }
   .founder-headline { font-size: 22px; }
-  .founder-cta { display: inline-flex; width: auto; font-size: 19px; padding: 19px 38px; margin-top: 20px; }
+  .founder-cta-row { flex-direction: row; align-items: center; gap: 20px; margin-top: 20px; }
+  .founder-cta { display: inline-flex; width: auto; font-size: 19px; padding: 19px 38px; }
+  .founder-cta-note { font-size: 16px; text-align: left; color: rgba(255,255,255,0.78); }
   .founder-decor { display: block; }
 }
 @media (min-width: 1024px) {
@@ -3376,9 +3391,12 @@ function FounderBadge() {
               <span className="founder-em">SM 엔터테인먼트 15년 전속 프로듀서</span>
               <br />원장이 <span className="founder-underline">직접 운영</span>합니다
             </div>
-            <a href="/producer-works.html" className="founder-cta">
-              {"Producer's Works"} <Icon.Arrow />
-            </a>
+            <div className="founder-cta-row">
+              <a href="/producer-works.html" className="founder-cta">
+                {"Producer's Works"} <Icon.Arrow />
+              </a>
+              <span className="founder-cta-note">참여 앨범을 확인하실 수 있습니다.</span>
+            </div>
           </div>
           <div className="founder-decor" aria-hidden="true">
             <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
