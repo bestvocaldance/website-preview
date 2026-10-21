@@ -2219,6 +2219,43 @@ body.fac-lb-open .nav { display: none; }
   .fac-strip-inner { padding: 0 24px; gap: 14px; }
 }
 
+
+/* 썸네일 격자 (전체 나열) */
+.fac-stage { scroll-margin-top: 76px; }
+.fac-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+@media (min-width: 640px)  { .fac-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; } }
+@media (min-width: 960px)  { .fac-grid { grid-template-columns: repeat(6, 1fr); gap: 12px; } }
+.fac-gthumb {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  padding: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #0A0A0B;
+  cursor: pointer;
+  transition: border-color .2s, box-shadow .25s, transform .25s;
+}
+.fac-gthumb img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  filter: brightness(0.6) saturate(0.85);
+  transition: filter .25s ease;
+}
+.fac-gthumb:hover { border-color: rgba(242,201,76,0.6); transform: translateY(-2px); }
+.fac-gthumb:hover img { filter: brightness(1) saturate(1.05); }
+.fac-gthumb.active {
+  border-color: #F2C94C;
+  box-shadow: 0 0 0 2px #F2C94C;
+}
+.fac-gthumb.active img { filter: brightness(1) saturate(1.05); }
+.fac-gthumb.active .fac-thumb-num { color: #F2C94C; }
+
 /* ===== Marquee tag bar (between sections) ===== */
 .marquee {
   border-top: 1px solid var(--line-soft);
@@ -3702,61 +3739,29 @@ function Teachers() {
   );
 }
 
-const FACILITY_GALLERY = Array.from({length: 11}, (_, i) => ({
+const FACILITY_GALLERY = Array.from({length: 34}, (_, i) => ({
   src: `img/fac/${String(i+1).padStart(2,'0')}.jpg`,
+  thumb: `img/fac/t/${String(i+1).padStart(2,'0')}.jpg`,
   caption: String(i+1).padStart(3,'0'),
 }));
 
 function Facilities() {
   const [active, setActive] = useState(0);
   const [lightbox, setLightbox] = useState(false);
-  const stripRef = useRef(null);
+  const stageRef = useRef(null);
 
-  // 활성 썸네일을 컨테이너 중앙에 위치시킴
-  const centerThumb = (idx, behavior = 'smooth') => {
-    const strip = stripRef.current;
-    if (!strip) return;
-    const el = strip.querySelector(`[data-idx="${idx}"]`);
-    if (!el) return;
-    const target = el.offsetLeft - strip.clientWidth/2 + el.offsetWidth/2;
-    strip.scrollTo({ left: Math.max(0, target), behavior });
-  };
-
-  // active 변경 시 중앙 정렬
-  useEffect(() => {
-    centerThumb(active, 'smooth');
-  }, [active]);
-
-  // 초기 마운트 시 즉시 중앙 정렬 (이미지 로드 후 한 번 더)
-  useEffect(() => {
-    const strip = stripRef.current;
-    if (!strip) return;
-
-    // 레이아웃 직후
-    requestAnimationFrame(() => centerThumb(0, 'auto'));
-
-    // 썸네일 이미지 로드 후 다시 정렬 (이미지로 인해 레이아웃이 변할 수 있음)
-    const imgs = strip.querySelectorAll('img');
-    let pending = imgs.length;
-    if (pending === 0) return;
-    const onLoad = () => {
-      pending--;
-      if (pending <= 0) centerThumb(0, 'auto');
-    };
-    imgs.forEach(img => {
-      if (img.complete) onLoad();
-      else {
-        img.addEventListener('load', onLoad, { once: true });
-        img.addEventListener('error', onLoad, { once: true });
+  // 썸네일을 누르면 위쪽 큰 사진으로 부드럽게 이동 (특히 모바일에서 필요)
+  const pick = (i) => {
+    if (i === active) { setLightbox(true); return; }
+    setActive(i);
+    const el = stageRef.current;
+    if (el) {
+      const r = el.getBoundingClientRect();
+      if (r.top < 70 || r.bottom > window.innerHeight - 40) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-    });
-
-    // 윈도우 리사이즈 시 재정렬
-    const onResize = () => centerThumb(active, 'auto');
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-    // eslint-disable-next-line
-  }, []);
+    }
+  };
 
   const current = FACILITY_GALLERY[active];
 
@@ -3769,7 +3774,7 @@ function Facilities() {
         </div>
 
         {/* 메인 큰 이미지 */}
-        <div className="fac-stage reveal" onClick={() => setLightbox(true)} role="button" tabIndex={0}
+        <div className="fac-stage reveal" ref={stageRef} onClick={() => setLightbox(true)} role="button" tabIndex={0}
           onKeyDown={(e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); setLightbox(true);}}}
         >
           {FACILITY_GALLERY.map((f, i) => {
@@ -3800,43 +3805,21 @@ function Facilities() {
           </div>
         </div>
 
-        {/* 썸네일 카드 스트립 + 좌우 화살표 */}
-        <div className="fac-strip-wrap reveal">
-          <button
-            className="fac-strip-arrow fac-strip-arrow-prev"
-            onClick={() => setActive((active - 1 + FACILITY_GALLERY.length) % FACILITY_GALLERY.length)}
-            aria-label="이전 사진"
-          >‹</button>
-          <div className="fac-strip" ref={stripRef}>
-            <div className="fac-strip-inner">
-              {FACILITY_GALLERY.map((f, i) => {
-                const isActive = i === active;
-                return (
-                  <button
-                    key={i}
-                    data-idx={i}
-                    className={`fac-thumb ${isActive ? 'active' : ''}`}
-                    onClick={() => {
-                      if (isActive) setLightbox(true);
-                      else setActive(i);
-                    }}
-                    style={{
-                      transform: `scale(${isActive ? 1.06 : 1})`,
-                    }}
-                    aria-label={`${f.caption} 보기`}
-                  >
-                    <img src={f.src} alt={f.caption} loading="lazy" />
-                    <span className="fac-thumb-num">{String(i+1).padStart(2,'0')}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-          <button
-            className="fac-strip-arrow fac-strip-arrow-next"
-            onClick={() => setActive((active + 1) % FACILITY_GALLERY.length)}
-            aria-label="다음 사진"
-          >›</button>
+        {/* 썸네일 전체 나열 — 누르면 위 큰 사진이 바뀜 */}
+        <div className="fac-grid reveal" role="list">
+          {FACILITY_GALLERY.map((f, i) => (
+            <button
+              key={i}
+              role="listitem"
+              className={`fac-gthumb ${i === active ? 'active' : ''}`}
+              onClick={() => pick(i)}
+              aria-label={`${f.caption} 보기`}
+              aria-current={i === active ? 'true' : undefined}
+            >
+              <img src={f.thumb} alt={f.caption} loading="lazy" decoding="async" />
+              <span className="fac-thumb-num">{String(i+1).padStart(2,'0')}</span>
+            </button>
+          ))}
         </div>
       </div>
 
