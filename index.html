@@ -2651,6 +2651,15 @@ body.fac-lb-open .nav { display: none; }
 .audition-guide-grid strong {margin-top:26px;font-size:13px;color:#ded5ff;}
 @media(max-width:700px){.audition-guide-grid{grid-template-columns:1fr;}.audition-guide{padding-top:40px;padding-bottom:40px;}.hero .hero-h-mega{font-size:clamp(30px,8vw,48px);}.audition-actions .btn{padding:13px 16px;font-size:13px;}.hero-text{padding:26px 20px;}.hero h1 em{font-size:15px;}}
 
+/* Continuous movement from the hero into the class guide. */
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+.hero-text { backdrop-filter: none; -webkit-backdrop-filter: none; }
+.reveal { transform: none; transition: opacity .45s ease; }
+.parallax-section::before { background-attachment: scroll; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transition: none; }
+}
 </style>
 </head>
 <body>
@@ -3329,7 +3338,7 @@ function Hero({ tweaks }) {
             취미부터 실력 향상까지, 나에게 맞는 수업으로 시작하세요.
           </p>
           <div className="hero-actions audition-actions">
-            <a className="btn btn-primary" href="#vocal-dance-class">취미·일반 클래스 알아보기 ↓</a>
+            <a className="btn btn-primary" href="#class-guide">취미·일반 클래스 알아보기 ↓</a>
             <a className="btn btn-ghost" href="#audition-specialty">오디션 트레이닝 센터 ↓</a>
           </div>
           <div style={{marginTop:22,paddingTop:16,borderTop:'1px solid rgba(255,255,255,.25)'}}>
@@ -3347,7 +3356,7 @@ function Hero({ tweaks }) {
 }
 
 function AuditionGuide() {
-  return <section className="audition-guide wrap" aria-label="목표별 수업 안내">
+  return <section id="class-guide" className="audition-guide wrap" aria-label="목표별 수업 안내">
     <div className="audition-guide-heading"><span>FIND YOUR CLASS</span><h2>즐겁게 시작해도, 진지하게 꿈꿔도.</h2><p>배우는 이유는 달라도, 나에게 맞는 수업을 찾을 수 있도록.</p></div>
     <div className="audition-guide-grid learning-paths">
       <a href="programs.html" id="vocal-dance-class" style={{scrollMarginTop:90}}><span className="guide-index">보컬·댄스 클래스</span><h3>좋아하는 노래와 춤,<br />누구나 즐겁게.</h3><p>초등학생·청소년·성인까지, 처음이어도 괜찮아요.<br /><br />어린이·청소년 취미 보컬과 댄스, 성인 취미 보컬과 K-POP 댄스. 즐거운 시작부터 발성·표현력을 다듬는 실력 향상까지, 나의 목표에 맞춰 배웁니다.</p><strong>취미·일반 수업 알아보기 ↗</strong></a>
