@@ -2629,6 +2629,26 @@ body.fac-lb-open .nav { display: none; }
 .bvd-agencies{padding:100px 0;background:#0a0a0b;border-top:1px solid #232329;border-bottom:1px solid #232329;overflow:hidden}
 .bvd-agency-head,.bvd-agency-foot{max-width:1200px;margin:auto;padding:0 24px}.bvd-agency-eyebrow{font-size:12px;letter-spacing:.18em;color:#a59eef;margin-bottom:18px}.bvd-agencies h2{font-size:clamp(30px,4vw,52px);letter-spacing:-.055em;line-height:1.25;color:#f4f4f6;margin:0 0 16px}.bvd-agency-desc{color:#a6a6ae;font-size:16px;line-height:1.8}.bvd-agency-control{margin-top:24px;border:1px solid #45414f;border-radius:99px;padding:10px 17px;background:transparent;color:#d3cfea;font:inherit;font-size:13px;cursor:pointer}.bvd-agency-rows{display:grid;gap:18px;margin:40px 0 36px}.bvd-agency-row{overflow-x:auto;scrollbar-width:none;touch-action:pan-x pan-y;mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent)}.bvd-agency-row::-webkit-scrollbar{display:none}.bvd-agency-track{display:flex;width:max-content;animation:bvd-logo-flow 90s linear infinite}.bvd-agency-row.reverse .bvd-agency-track{animation-direction:reverse;animation-duration:100s}.bvd-agency-group{display:flex;gap:18px;padding-right:18px;list-style:none;margin:0;padding-left:0}.bvd-agency-card{width:220px;flex:0 0 220px;border:1px solid #303039;background:#19191e;border-radius:15px;padding:10px}.bvd-agency-card img{display:block;width:100%;height:auto;aspect-ratio:2/1;object-fit:contain;background:#fff;border-radius:8px}.bvd-agency-name{display:block;color:#b7b7c2;font-size:11px;padding:12px 4px 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bvd-agency-row:hover .bvd-agency-track,.bvd-agency-row:focus-within .bvd-agency-track,.bvd-agency-row:active .bvd-agency-track,.bvd-agencies.is-paused .bvd-agency-track{animation-play-state:paused}.bvd-agency-foot{display:flex;gap:24px;align-items:center;justify-content:flex-end;flex-wrap:wrap}.bvd-agency-note{font-size:12px;color:#777780;line-height:1.8;max-width:640px}.bvd-agency-cta{display:inline-flex;align-items:center;gap:20px;padding:17px 25px;border-radius:99px;background:#7f77dd;color:#fff;text-decoration:none;font-size:15px;font-weight:700;min-height:52px}.bvd-agency-cta:hover{background:#9189ec}.bvd-agencies :focus-visible{outline:3px solid #b5adff;outline-offset:5px}@keyframes bvd-logo-flow{to{transform:translateX(-50%)}}@media(max-width:600px){.bvd-agencies{padding:64px 0}.bvd-agency-card{width:174px;flex-basis:174px}.bvd-agency-group{gap:12px;padding-right:12px}.bvd-agency-rows{gap:12px;margin-top:28px}.bvd-agency-foot{align-items:flex-start;flex-direction:column}.bvd-agency-cta{width:100%;justify-content:center}}@media(prefers-reduced-motion:reduce){.bvd-agency-track{animation:none!important}.bvd-agency-control{display:none}}
 
+
+/* Audition-focused homepage */
+.hero .hero-h-mega { font-size:clamp(34px,5.2vw,72px);line-height:1.18; }
+.hero h1 em {font-size:clamp(15px,1.7vw,22px);line-height:1.5;color:#fff;}
+.hero-sub {color:#e1dfeb;line-height:1.8;}
+.audition-actions {margin-top:25px;}
+.audition-note {font-size:12px;color:#c5c2d3;margin-top:12px;}
+.audition-guide {padding-top:64px;padding-bottom:64px;}
+.audition-guide-heading>span {font-size:11px;letter-spacing:.18em;color:#b7a8ff;}
+.audition-guide-heading h2 {font-size:clamp(25px,3vw,38px);margin:14px 0;letter-spacing:-.04em;}
+.audition-guide-heading p {color:#aaa7b8;line-height:1.7;}
+.audition-guide-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px;}
+.audition-guide-grid>a {display:flex;flex-direction:column;padding:30px;border:1px solid #34303e;border-radius:20px;background:#15131b;transition:border-color .2s;}
+.audition-guide-grid>a:hover {border-color:#a68cff;}
+.guide-index {color:#b7a8ff;font-size:12px;}
+.audition-guide-grid h3 {font-size:24px;line-height:1.4;margin:20px 0 14px;}
+.audition-guide-grid p {color:#bcb8c9;line-height:1.8;font-size:14px;flex:1;}
+.audition-guide-grid strong {margin-top:26px;font-size:13px;color:#ded5ff;}
+@media(max-width:700px){.audition-guide-grid{grid-template-columns:1fr;}.audition-guide{padding-top:40px;padding-bottom:40px;}.hero .hero-h-mega{font-size:clamp(30px,8vw,48px);}.audition-actions .btn{padding:13px 16px;font-size:13px;}.hero-text{padding:26px 20px;}.hero h1 em{font-size:15px;}}
+
 </style>
 </head>
 <body>
@@ -3296,16 +3316,21 @@ function Hero({ tweaks }) {
       </div>
       <div className="hero-content wrap">
         <div className="hero-text">
-          <div className="hero-eyebrow">VOCAL · DANCE STUDIO</div>
+          <div className="hero-eyebrow">광교 · 상현역  |  오디션 전문 교육</div>
           <h1>
-            <span className="hero-h-mega">무대를 향한</span><br />
-            <span className="accent hero-h-mega">가장 빠른 길</span>
-            <em>{tweaks.heroSub}</em>
+            <span className="hero-h-mega">오디션을 목표로,</span><br />
+            <span className="accent hero-h-mega">배움부터 다르게.</span>
+            <em>SM 엔터테인먼트 15년 전속 프로듀서 원장 운영</em>
           </h1>
           <p className="hero-sub">
-            13년의 운영 노하우, 19종의 커리큘럼, 30명의 현역 강사진.<br />
-            베스트보컬&댄스는 당신의 다음 무대를 함께 설계합니다.
+            오디션 입문부터 원장 직강 보컬까지.<br />
+            현재 실력과 목표에 맞는 준비 과정을 만나보세요.
           </p>
+          <div className="hero-actions audition-actions">
+            <a className="btn btn-primary" href="consult.html">오디션 과정 상담하기 ↗</a>
+            <a className="btn btn-ghost" href="#videos">수강생 영상 보기 ↓</a>
+          </div>
+          <p className="audition-note">원장 직강은 해당 과정에 한해 운영합니다.</p>
         </div>
       </div>
       <div className="hero-scroll">
@@ -3314,6 +3339,17 @@ function Hero({ tweaks }) {
       </div>
     </header>
   );
+}
+
+function AuditionGuide() {
+  return <section className="audition-guide wrap" aria-label="오디션 준비 안내">
+    <div className="audition-guide-heading"><span>YOUR NEXT STAGE</span><h2>선택하기 전에, 직접 확인하세요.</h2><p>누가 가르치는지, 무엇을 배우는지, 어떤 무대를 만들어 왔는지.</p></div>
+    <div className="audition-guide-grid">
+      <a href="#debut"><span className="guide-index">01 · 배출 사례</span><h3>이곳에서 시작해<br />무대에 선 아티스트</h3><p>BOYNEXTDOOR 운학 등 학원 출신 아티스트와 교육 분야를 확인하세요.</p><strong>데뷔·활동 사례 보기 ↗</strong></a>
+      <a href="programs.html"><span className="guide-index">02 · 실제 수업</span><h3>내 단계에 맞는<br />오디션 준비 과정</h3><p>오디션 입문, 원장·부원장 직강 등 과정별 교육 내용을 살펴보세요.</p><strong>교육과정 확인하기 ↗</strong></a>
+      <a href="#videos"><span className="guide-index">03 · 교육 현장</span><h3>학생들의 연습이<br />무대가 되는 순간</h3><p>수강생의 보컬·댄스 영상과 학원의 교육 현장을 직접 만나보세요.</p><strong>영상으로 확인하기 ↗</strong></a>
+    </div>
+  </section>;
 }
 
 function DebutSlider() {
@@ -4164,15 +4200,15 @@ function App() {
 
   return (
     <>
-      <FounderIntro />
       <Nav />
       <Hero tweaks={tweaks} />
+      <AuditionGuide />
       <FounderBadge />
-      <AgencyLogos />
       <DebutSlider />
       <Marquee />
       <Stats />
       <VideoGrid />
+      <AgencyLogos />
       <Reviews />
       <Courses />
       <Facilities />
