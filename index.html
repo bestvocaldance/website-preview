@@ -2641,6 +2641,8 @@ body.fac-lb-open .nav { display: none; }
 .audition-guide-heading h2 {font-size:clamp(25px,3vw,38px);margin:14px 0;letter-spacing:-.04em;}
 .audition-guide-heading p {color:#aaa7b8;line-height:1.7;}
 .audition-guide-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px;}
+.audition-guide-grid.learning-paths {grid-template-columns:repeat(2,minmax(0,1fr));}
+@media(max-width:700px){.audition-guide-grid.learning-paths{grid-template-columns:1fr;}}
 .audition-guide-grid>a {display:flex;flex-direction:column;padding:30px;border:1px solid #34303e;border-radius:20px;background:#15131b;transition:border-color .2s;}
 .audition-guide-grid>a:hover {border-color:#a68cff;}
 .guide-index {color:#b7a8ff;font-size:12px;}
@@ -3327,11 +3329,11 @@ function Hero({ tweaks }) {
             취미부터 실력 향상까지, 나에게 맞는 수업으로 시작하세요.
           </p>
           <div className="hero-actions audition-actions">
-            <a className="btn btn-primary" href="consult.html">나에게 맞는 수업 상담 ↗</a>
-            <a className="btn btn-ghost" href="#audition-specialty">오디션 직강 알아보기 ↓</a>
+            <a className="btn btn-primary" href="#vocal-dance-class">취미·일반 클래스 알아보기 ↓</a>
+            <a className="btn btn-ghost" href="#audition-specialty">오디션 트레이닝 센터 ↓</a>
           </div>
           <div style={{marginTop:22,paddingTop:16,borderTop:'1px solid rgba(255,255,255,.25)'}}>
-            <p style={{fontSize:12,color:'#d2c6ff',marginBottom:6}}>오디션 특화 교육</p>
+            <p style={{fontSize:12,color:'#d2c6ff',marginBottom:6}}>오디션 트레이닝 센터 · 별도 트레이닝 공간 운영</p>
             <p style={{fontSize:16,lineHeight:1.8,color:'#fff'}}>오디션 특화 과정은 <strong>SM 엔터테인먼트 15년 전속 프로듀서 출신 원장</strong>과<br /><strong>부원장이 직접 지도합니다.</strong></p>
           </div>
         </div>
@@ -3347,10 +3349,9 @@ function Hero({ tweaks }) {
 function AuditionGuide() {
   return <section className="audition-guide wrap" aria-label="목표별 수업 안내">
     <div className="audition-guide-heading"><span>FIND YOUR CLASS</span><h2>즐겁게 시작해도, 진지하게 꿈꿔도.</h2><p>배우는 이유는 달라도, 나에게 맞는 수업을 찾을 수 있도록.</p></div>
-    <div className="audition-guide-grid">
-      <a href="programs.html"><span className="guide-index">01 · 어린이 · 청소년</span><h3>좋아하는 노래와 춤,<br />처음부터 즐겁게</h3><p>초등학생·중학생의 취미 보컬과 댄스. 처음 배우는 학생도 기초부터 시작할 수 있습니다.</p><strong>어린이·청소년 과정 보기 ↗</strong></a>
-      <a href="programs.html"><span className="guide-index">02 · 성인 취미 · 실력 향상</span><h3>나를 위한 취미,<br />한 단계 깊은 배움</h3><p>성인 취미 보컬과 K-POP 댄스부터 발성·표현력을 다듬는 전문 과정까지.</p><strong>보컬·댄스 과정 보기 ↗</strong></a>
-      <a href="programs.html" id="audition-specialty" style={{borderColor:'#8870d5',background:'linear-gradient(145deg,#251d3b,#15131b)',scrollMarginTop:90}}><span className="guide-index">03 · 오디션 특화 교육</span><h3>원장·부원장이<br />직접 이끄는 오디션 수업</h3><p>SM 엔터테인먼트 15년 전속 프로듀서 출신 원장의 전문성과 부원장 직강. 목표에 맞는 오디션 과정을 만나보세요.</p><strong>오디션 직강 과정 보기 ↗</strong><small style={{marginTop:14,color:'#bcb8c9',fontSize:11,lineHeight:1.7}}>원장·부원장 직강은 해당 과정에 한해 운영합니다.</small></a>
+    <div className="audition-guide-grid learning-paths">
+      <a href="programs.html" id="vocal-dance-class" style={{scrollMarginTop:90}}><span className="guide-index">보컬·댄스 클래스</span><h3>좋아하는 노래와 춤,<br />누구나 즐겁게.</h3><p>초등학생·청소년·성인까지, 처음이어도 괜찮아요.<br /><br />어린이·청소년 취미 보컬과 댄스, 성인 취미 보컬과 K-POP 댄스. 즐거운 시작부터 발성·표현력을 다듬는 실력 향상까지, 나의 목표에 맞춰 배웁니다.</p><strong>취미·일반 수업 알아보기 ↗</strong></a>
+      <a href="programs.html" id="audition-specialty" style={{borderColor:'#8870d5',background:'linear-gradient(145deg,#251d3b,#15131b)',scrollMarginTop:90}}><span className="guide-index">오디션 트레이닝 센터</span><h3>오디션의 꿈,<br />전문적인 트레이닝으로.</h3><p>SM 엔터테인먼트 15년 전속 프로듀서 출신 원장과 부원장이 직접 이끄는 오디션 특화 교육.<br /><br />별도 트레이닝 공간에서 오디션 전문반의 퍼포먼스와 특화 수업을 진행합니다.</p><strong>오디션 전문 과정 알아보기 ↗</strong><small style={{marginTop:14,color:'#bcb8c9',fontSize:11,lineHeight:1.7}}>원장·부원장 직강은 해당 과정에 한해 운영합니다.</small></a>
     </div>
   </section>;
 }
