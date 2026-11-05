@@ -2747,30 +2747,36 @@ body.fac-lb-open .nav { display: none; }
 }
 @media (prefers-reduced-motion:reduce){.fac-cf-slide img{transition:none}}
 @media (max-width:640px){.fab-stack{transition:opacity .3s ease,transform .3s ease}.fab-stack.fab-hero{opacity:0;transform:translateX(24px);pointer-events:none}}
+.hero h1{word-break:keep-all}
 /* 첫 화면 두 갈래 버튼 */
-.hero-doors{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;max-width:640px}
-.hero-door{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 22px;border-radius:14px;text-decoration:none;transition:transform .25s ease,background-color .25s ease,box-shadow .25s ease}
-.door-tx{display:flex;flex-direction:column;gap:3px;min-width:0}
-.door-en{font-size:11px;font-weight:700;letter-spacing:.22em;opacity:.7}
-.door-tx b{font-size:22px;font-weight:800;letter-spacing:-.03em;line-height:1.25}
-.door-tx small{font-size:13px;font-weight:500;opacity:.75;line-height:1.4}
-.door-ar{flex:0 0 42px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;transition:transform .25s ease,background-color .25s ease}
+.hero-doors{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:30px;max-width:820px}
+.hero-door{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:24px 24px 22px;border-radius:16px;text-decoration:none;min-height:200px;transition:transform .25s ease,background-color .25s ease,box-shadow .25s ease}
+.door-en{font-size:11px;font-weight:700;letter-spacing:.18em;opacity:.75}
+.hero-door b{font-size:26px;font-weight:800;letter-spacing:-.03em;line-height:1.25;margin-top:2px}
+.hero-door small{font-size:14px;font-weight:500;line-height:1.6;opacity:.85;padding-right:44px}
+.hero-door small strong{font-weight:800;opacity:1}
+.door-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:12px;padding-right:48px}
+.door-tags i{font-style:normal;font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px}
+.door-ar{position:absolute;right:20px;bottom:20px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;transition:transform .25s ease}
 .door-aud{background:#7F77DD;color:#fff;box-shadow:0 18px 40px -18px rgba(127,119,221,.9)}
-.door-aud .door-ar{background:rgba(255,255,255,.18)}
+.door-aud .door-ar{background:rgba(255,255,255,.2)}
+.door-aud .door-tags i{background:rgba(255,255,255,.18);color:#fff}
 .door-hob{background:#F4F2EE;color:#16151c;box-shadow:0 18px 40px -20px rgba(255,255,255,.35)}
 .door-hob .door-en{color:#6a61cf;opacity:1}
 .door-hob .door-ar{background:#16151c;color:#fff}
-.hero-door:hover{transform:translateY(-2px)}
+.door-hob .door-tags i{background:#e6e2f7;color:#4b44a8}
+.hero-door:hover{transform:translateY(-3px)}
 .hero-door:hover .door-ar{transform:translateX(3px)}
 .door-aud:hover{background:#8b84e6}
 .door-hob:hover{background:#fff}
 .hero-door:active{transform:scale(.985)}
-.hero-consult{display:inline-block;margin-top:16px;font-size:14px;font-weight:600;color:#d2c6ff;text-decoration:none;border-bottom:1px solid rgba(210,198,255,.5);padding-bottom:2px}
+.hero-consult{display:inline-block;margin-top:18px;font-size:14px;font-weight:600;color:#d2c6ff;text-decoration:none;border-bottom:1px solid rgba(210,198,255,.5);padding-bottom:2px}
 @media (max-width:640px){
   .hero-doors{grid-template-columns:1fr;gap:10px;margin-top:22px}
-  .hero-door{padding:16px 18px}
-  .door-tx b{font-size:20px}
-  .door-ar{flex-basis:38px;width:38px;height:38px}
+  .hero-door{padding:18px 18px 16px;min-height:0}
+  .hero-door b{font-size:21px}
+  .hero-door small{font-size:13px}
+  .door-ar{right:16px;bottom:16px;width:38px;height:38px}
 }
 .wed-card{display:flex;flex-direction:column;gap:10px;padding:22px 20px;border-radius:14px;background:#1d1828;border:1px solid rgba(127,119,221,.45)}
 .wed-card.is-done{opacity:.55;border-color:rgba(255,255,255,.1)}
@@ -3515,29 +3521,23 @@ function Hero({ tweaks }) {
         <div className="hero-text">
           <div className="hero-eyebrow">상현역 도보 1분  |  SINCE 2013 · 14년차</div>
           <h1>
-            <span className="hero-h-mega">매주 수요일,</span><br />
-            <span className="accent hero-h-mega">기획사가 BVD로 옵니다.</span>
+            <span className="hero-h-mega">취미도, 오디션도.</span><br />
+            <span className="accent hero-h-mega">목적에 맞게 따로 배웁니다.</span>
             <em>SM 엔터테인먼트 15년 전속 프로듀서 원장이 직접 운영합니다.</em>
           </h1>
-          <p className="hero-sub">
-            믿고 맡길 검증된 기획사만, 한 달 4회 이상.<br />
-            준비된 아이는 데뷔가 빠릅니다.
-          </p>
           <div className="hero-doors" role="group" aria-label="목적 선택">
-            <a className="hero-door door-aud" href="#wed-audition">
-              <span className="door-tx">
-                <span className="door-en">AUDITION</span>
-                <b>오디션 준비</b>
-                <small>기획사 데뷔가 목표라면</small>
-              </span>
+            <a className="hero-door door-hob" href="#class-guide">
+              <span className="door-en">HOBBY CLASS · 취미반</span>
+              <b>취미로 배우기</b>
+              <small>오디션반과 <strong>완전히 따로</strong> 수업합니다.<br />초등·청소년·성인, 처음이어도 부담 없이.</small>
+              <span className="door-tags"><i>키즈</i><i>청소년</i><i>성인</i><i>보컬·댄스</i></span>
               <span className="door-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
             </a>
-            <a className="hero-door door-hob" href="#class-guide">
-              <span className="door-tx">
-                <span className="door-en">HOBBY CLASS</span>
-                <b>취미로 배우기</b>
-                <small>초등·청소년·성인, 처음이어도 괜찮아요</small>
-              </span>
+            <a className="hero-door door-aud" href="#wed-audition">
+              <span className="door-en">AUDITION CLASS · 오디션반</span>
+              <b>오디션 준비하기</b>
+              <small>기획사 데뷔가 목표인 학생만 모인 <strong>전문반</strong>.<br />매주 수요일, 검증된 기획사가 BVD로 옵니다.</small>
+              <span className="door-tags"><i>매주 수요일 오디션</i><i>원장 직강</i><i>데뷔 준비</i></span>
               <span className="door-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
             </a>
           </div>
