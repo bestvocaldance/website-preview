@@ -262,7 +262,7 @@ body.fac-lb-open .nav { display: none; }
   padding: 24px 24px 24px;
   border-radius: 14px;
   /* 글씨 뒤만 어두운 그라디언트 박스 — 영상은 그대로 보임 */
-  background: linear-gradient(135deg, rgba(10,10,11,0.78) 0%, rgba(10,10,11,0.62) 60%, rgba(10,10,11,0.42) 100%);
+  background: linear-gradient(135deg, rgba(10,10,11,0.88) 0%, rgba(10,10,11,0.78) 60%, rgba(10,10,11,0.62) 100%);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   border: 1px solid rgba(255,255,255,0.06);
@@ -2651,6 +2651,30 @@ body.fac-lb-open .nav { display: none; }
 .audition-guide-grid strong {margin-top:26px;font-size:13px;color:#ded5ff;}
 @media(max-width:700px){.audition-guide-grid{grid-template-columns:1fr;}.audition-guide{padding-top:40px;padding-bottom:40px;}.hero .hero-h-mega{font-size:clamp(30px,8vw,48px);}.audition-actions .btn{padding:13px 16px;font-size:13px;}.hero-text{padding:26px 20px;}.hero h1 em{font-size:15px;}}
 
+
+/* ===== 이달의 수요일 오디션 ===== */
+.wed-sec{padding:72px 0 64px;background:linear-gradient(180deg,#121016 0%,#17131f 100%);border-top:1px solid rgba(127,119,221,.25);border-bottom:1px solid rgba(127,119,221,.18)}
+.wed-head{max-width:720px;margin-bottom:28px}
+.wed-lead{color:#c9c3dc;font-size:16px;line-height:1.8;margin-top:12px}
+.wed-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media(max-width:860px){.wed-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.wed-card{display:flex;flex-direction:column;gap:10px;padding:22px 20px;border-radius:14px;background:#1d1828;border:1px solid rgba(127,119,221,.45)}
+.wed-card.is-done{opacity:.55;border-color:rgba(255,255,255,.1)}
+.wed-date{font-size:30px;font-weight:800;color:#fff;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.wed-date small{font-size:12px;font-weight:700;color:#a99ff0;letter-spacing:.14em;margin-left:4px}
+.wed-agency{font-size:18px;font-weight:700;color:#ece8ff;min-height:1.4em}
+.wed-badge{align-self:flex-start;font-size:12px;font-weight:700;padding:4px 10px;border-radius:99px;background:#7F77DD;color:#fff}
+.wed-badge.done{background:transparent;border:1px solid rgba(255,255,255,.3);color:#bcb8c9}
+.wed-info{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+@media(max-width:860px){.wed-info{grid-template-columns:1fr}}
+.wed-info div{display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:10px;background:rgba(255,255,255,.04)}
+.wed-info b{font-size:12px;color:#a99ff0;letter-spacing:.06em}
+.wed-info span{font-size:15px;color:#fff}
+.wed-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.stat-suffix{white-space:nowrap}
+.hero-eyebrow{white-space:nowrap}
+.stats-coach-note{color:#c9c3dc;font-size:15px;line-height:1.8;margin-top:14px;max-width:640px}
+
 /* Continuous movement from the hero into the class guide. */
 html { scroll-behavior: smooth; scroll-padding-top: 76px; }
 .hero-text { backdrop-filter: none; -webkit-backdrop-filter: none; }
@@ -3131,10 +3155,10 @@ const Icon = {
 
 /* ============== DATA ============== */
 const STATS = [
-  { num: 13,   suffix: "년",   label: "운영 노하우",   sub: "SINCE 2013" },
-  { num: 19,   suffix: "종",   label: "전문 커리큘럼", sub: "VOCAL · DANCE" },
-  { num: 30,   suffix: "명",   label: "현역 강사진",   sub: "ACTIVE COACHES" },
-  { num: 3000, suffix: "명+", label: "누적 합격생",   sub: "TOTAL ALUMNI" },
+  { num: 14,    suffix: "년",   label: "운영 노하우 · 14년차", sub: "SINCE 2013" },
+  { num: 31,    suffix: "종",   label: "전문 커리큘럼",   sub: "VOCAL · DANCE" },
+  { num: 20,    suffix: "명+",  label: "현역 강사진",     sub: "ACTIVE COACHES" },
+  { num: 50000, suffix: "+",    label: "누적 오디션 합격", sub: "1차 포함 · SINCE 2013" },
   { num: 8,    suffix: "팀",   label: "데뷔 / 활동 팀", sub: "DEBUT GROUPS" },
 ];
 
@@ -3327,23 +3351,23 @@ function Hero({ tweaks }) {
       </div>
       <div className="hero-content wrap">
         <div className="hero-text">
-          <div className="hero-eyebrow">광교 · 상현역  |  보컬 · 댄스 · 오디션</div>
+          <div className="hero-eyebrow">상현역 도보 1분  |  SINCE 2013 · 14년차</div>
           <h1>
-            <span className="hero-h-mega">보컬·댄스는 즐겁게,</span><br />
-            <span className="accent hero-h-mega">오디션은 전문적으로.</span>
-            <em>초등·청소년·성인 취미 보컬과 댄스, 처음이어도 괜찮아요.</em>
+            <span className="hero-h-mega">매주 수요일,</span><br />
+            <span className="accent hero-h-mega">기획사가 BVD로 옵니다.</span>
+            <em>SM 엔터테인먼트 15년 전속 프로듀서 원장이 직접 운영합니다.</em>
           </h1>
           <p className="hero-sub">
-            좋아하는 노래 한 곡, 배우고 싶던 춤부터.<br />
-            취미부터 실력 향상까지, 나에게 맞는 수업으로 시작하세요.
+            믿고 맡길 검증된 기획사만, 한 달 4회 이상.<br />
+            준비된 아이는 데뷔가 빠릅니다.
           </p>
           <div className="hero-actions audition-actions">
-            <a className="btn btn-primary" href="#class-guide">취미·일반 클래스 알아보기 ↓</a>
-            <a className="btn btn-ghost" href="#audition-specialty">오디션 트레이닝 센터 ↓</a>
+            <a className="btn btn-primary" href="consult.html">오디션반 상담 예약 →</a>
+            <a className="btn btn-ghost" href="#wed-audition">이달의 수요일 오디션 ↓</a>
           </div>
           <div style={{marginTop:22,paddingTop:16,borderTop:'1px solid rgba(255,255,255,.25)'}}>
-            <p style={{fontSize:12,color:'#d2c6ff',marginBottom:6}}>오디션 트레이닝 센터 · 별도 트레이닝 공간 운영</p>
-            <p style={{fontSize:16,lineHeight:1.8,color:'#fff'}}>오디션 특화 과정은 <strong>SM 엔터테인먼트 15년 전속 프로듀서 출신 원장</strong>과<br /><strong>부원장이 직접 지도합니다.</strong></p>
+            <p style={{fontSize:12,color:'#d2c6ff',marginBottom:6}}>취미 보컬·댄스도 함께 운영합니다</p>
+            <p style={{fontSize:15,lineHeight:1.8,color:'#fff'}}>초등·청소년·성인, 처음이어도 괜찮아요. <a href="#class-guide" style={{color:'#d2c6ff',textDecoration:'underline',textUnderlineOffset:3}}>취미·일반 클래스 보기 ↓</a></p>
           </div>
         </div>
       </div>
@@ -3352,6 +3376,52 @@ function Hero({ tweaks }) {
         <span className="hero-scroll-line" />
       </div>
     </header>
+  );
+}
+
+
+/* ============== 이달의 수요일 오디션 (매달 첫째 주에 아래 MONTH·LINEUP만 바꾸면 됩니다) ============== */
+const WED_MONTH = "2026년 11월";
+const WED_LINEUP = [
+  { date: "2026-11-04", agency: "쏘스뮤직" },
+  { date: "2026-11-11", agency: "ATRP" },
+  { date: "2026-11-18", agency: "미스틱스토리" },
+  { date: "2026-11-25", agency: "젤리피쉬" },
+];
+function WedAudition() {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const items = WED_LINEUP.map(x => {
+    const d = new Date(x.date + "T00:00:00");
+    return { ...x, md: `${d.getMonth()+1}.${d.getDate()}`, done: d < today };
+  });
+  return (
+    <section id="wed-audition" className="wed-sec" data-screen-label="Wednesday Audition" style={{scrollMarginTop:80}}>
+      <div className="wrap">
+        <div className="wed-head">
+          <div className="sec-eyebrow">EVERY WEDNESDAY · {WED_MONTH}</div>
+          <h2 className="sec-title">이달의 <span className="accent">수요일 오디션</span></h2>
+          <p className="wed-lead">한 달 4회 이상, 매주 수요일 빠짐없이. 믿고 맡길 검증된 기획사만 BVD에서 오디션을 엽니다.</p>
+        </div>
+        <ol className="wed-grid">
+          {items.map((x,i) => (
+            <li key={i} className={x.done ? "wed-card is-done" : "wed-card"}>
+              <span className="wed-date">{x.md} <small>WED</small></span>
+              <strong className="wed-agency">{x.agency}</strong>
+              <span className={x.done ? "wed-badge done" : "wed-badge"}>{x.done ? "진행 완료" : "예정"}</span>
+            </li>
+          ))}
+        </ol>
+        <div className="wed-info">
+          <div><b>참여 대상</b><span>BVD 오디션반 수강생 누구나</span></div>
+          <div><b>시간</b><span>저녁 6시 또는 7시 · 기획사별 공지</span></div>
+          <div><b>진행</b><span>BVD 1차 오디션 → 합격 시 기획사 본사 2차</span></div>
+        </div>
+        <div className="wed-actions">
+          <a className="btn btn-primary" href="consult.html">오디션반 상담 예약 →</a>
+          <a className="btn btn-ghost" href="https://www.instagram.com/bestvocalndance/" target="_blank" rel="noopener">인스타 DM "오디션" ↗</a>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -3403,7 +3473,7 @@ function DebutSlider() {
             학원 출신<br />
             <span className="accent">데뷔 아이돌</span>
           </h2>
-          <p className="debut-desc debut-desc-big">베스트보컬&댄스를 거쳐<br/><strong>실제 무대에 선 친구들.</strong><br/>다음 차례는 <span className="accent">바로 당신</span>입니다.</p>
+          <p className="debut-desc debut-desc-big"><strong>준비된 아이는, 데뷔가 빠릅니다.</strong><br/>진솔·찬희·수아·운학, 모두 BVD에서 1년 이상 준비해<br/>기획사에 들어가 빠르게 무대에 섰습니다.<br/>다음 차례는 <span className="accent">바로 당신</span>입니다.</p>
         </div>
       </div>
       <div className="debut3d-stage">
@@ -3533,7 +3603,7 @@ function StatItem({ stat, trigger, delay }) {
   return (
     <div className="stat reveal" style={{ transitionDelay: `${delay}ms` }}>
       <div className="stat-num num">
-        {val}<span className="stat-suffix">{stat.suffix}</span>
+        {val.toLocaleString('ko-KR')}<span className="stat-suffix">{stat.suffix}</span>
       </div>
       <div className="stat-label">{stat.label}</div>
       <div className="stat-sub">{stat.sub}</div>
@@ -3557,7 +3627,8 @@ function Stats() {
       <div className="wrap">
         <div className="sec-head reveal">
           <div className="sec-eyebrow">BY THE NUMBERS</div>
-          <h2 className="sec-title">숫자가 증명하는<br /><span className="accent">13년</span>의 베스트보컬&댄스</h2>
+          <h2 className="sec-title">숫자가 증명하는<br /><span className="accent">14년</span>의 베스트보컬&댄스</h2>
+          <p className="stats-coach-note">댄스 강사진은 지금 현장에서 활동 중인 댄서·안무가, 보컬 강사진은 5대 실용음악과 명문대 출신 · 기획사 트레이닝 경험자로 구성되어 있습니다.</p>
         </div>
       </div>
       <div className="wrap">
@@ -4193,7 +4264,7 @@ const BVD_AGENCY_LOGOS = [{"name": "JYP Entertainment", "src": "data:image/png;b
 function AgencyLogos(){
  const [paused,setPaused]=React.useState(false);
  return <section className={'bvd-agencies'+(paused?' is-paused':'')} id="agency-logos" aria-labelledby="bvd-agency-title">
-  <div className="bvd-agency-head"><p className="bvd-agency-eyebrow">AUDITION / ENTERTAINMENT</p><h2 id="bvd-agency-title">꿈꾸던 무대에, 한 걸음 더.</h2><p className="bvd-agency-desc">목표 기획사에 맞춘 보컬·댄스 트레이닝.<br/>나에게 맞는 오디션 준비, 상담으로 시작하세요.</p><button type="button" className="bvd-agency-control" aria-pressed={paused} onClick={()=>setPaused(!paused)}>{paused?'로고 자동 이동 재생 ▶':'로고 자동 이동 일시정지 Ⅱ'}</button></div>
+  <div className="bvd-agency-head"><p className="bvd-agency-eyebrow">BVD 내방 오디션 진행 기획사</p><h2 id="bvd-agency-title">이 기획사들이 BVD에서 오디션을 열었습니다.</h2><p className="bvd-agency-desc">매주 수요일, 믿고 맡길 검증된 기획사만.<br/>이달 일정은 위 <a href="#wed-audition" style={{color:'inherit',textDecoration:'underline'}}>이달의 수요일 오디션</a>에서 확인하세요.</p><button type="button" className="bvd-agency-control" aria-pressed={paused} onClick={()=>setPaused(!paused)}>{paused?'로고 자동 이동 재생 ▶':'로고 자동 이동 일시정지 Ⅱ'}</button></div>
   <div className="bvd-agency-rows">{[BVD_AGENCY_LOGOS.slice(0,15),BVD_AGENCY_LOGOS.slice(15)].map((row,i)=><div key={i} className={'bvd-agency-row'+(i?' reverse':'')} tabIndex="0" aria-label={'기획사 로고 '+(i+1)+'번째 줄. 좌우로 스크롤하여 확인하세요.'}><div className="bvd-agency-track">{[0,1].map(copy=><ul key={copy} className="bvd-agency-group" aria-hidden={copy===1?'true':undefined}>{row.map(item=><li className="bvd-agency-card" key={item.name}><img src={item.src} alt={copy===1?'':item.name} width="600" height="300" loading="lazy" decoding="async"/><span className="bvd-agency-name">{item.name}</span></li>)}</ul>)}</div></div>)}</div>
   
  </section>
@@ -4215,6 +4286,7 @@ function App() {
     <>
       <Nav />
       <Hero tweaks={tweaks} />
+      <WedAudition />
       <AuditionGuide />
       <FounderBadge />
       <DebutSlider />
