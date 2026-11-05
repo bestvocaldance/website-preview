@@ -2698,6 +2698,27 @@ body.fac-lb-open .nav { display: none; }
   .ct-extra{padding:16px}
   .ct-foot{flex-direction:column;align-items:flex-start;gap:12px}
 }
+/* 시설 커버플로 */
+.fac-cf{position:relative;margin-top:8px}
+.fac-cf-swiper{width:100%;padding:24px 0 30px;overflow:hidden}
+.fac-cf .swiper.fac-cf-swiper{height:auto}
+.fac-cf .swiper-wrapper{align-items:center;height:auto}
+.fac-cf .swiper-slide.fac-cf-slide{width:min(56vw,720px);height:auto;aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:#15151a;cursor:pointer;will-change:transform;transform-style:flat}
+.fac-cf-slide img{width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.fac-cf-slide img{opacity:.42;transition:opacity .5s ease}
+.fac-cf-slide.swiper-slide-active img{opacity:1}
+.fac-cf-slide.swiper-slide-active{box-shadow:0 30px 80px -30px rgba(127,119,221,.55)}
+.fac-cf-ctrl{display:flex;align-items:center;gap:18px;margin-top:4px}
+.fac-cf-btn{appearance:none;width:46px;height:46px;flex:0 0 46px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--fg);font-size:24px;line-height:1;cursor:pointer;transition:all .2s}
+.fac-cf-btn:hover{border-color:var(--accent);color:var(--accent)}
+.fac-cf-bar.swiper-pagination-progressbar{position:relative!important;flex:1;height:2px!important;background:var(--line)!important;border-radius:2px;overflow:hidden;top:auto!important;left:auto!important;width:auto!important}
+.fac-cf-bar .swiper-pagination-progressbar-fill{background:var(--accent)!important}
+@media (max-width:640px){
+  .fac-cf .swiper-slide.fac-cf-slide{width:80vw;border-radius:14px}
+  .fac-cf-swiper{padding:14px 0 22px}
+  .fac-cf-btn{width:40px;height:40px;flex-basis:40px;font-size:20px}
+}
+@media (prefers-reduced-motion:reduce){.fac-cf-slide img{transition:none}}
 .wed-card{display:flex;flex-direction:column;gap:10px;padding:22px 20px;border-radius:14px;background:#1d1828;border:1px solid rgba(127,119,221,.45)}
 .wed-card.is-done{opacity:.55;border-color:rgba(255,255,255,.1)}
 .wed-date{font-size:30px;font-weight:800;color:#fff;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
@@ -2728,12 +2749,14 @@ html { scroll-behavior: smooth; scroll-padding-top: 76px; }
   .reveal { opacity: 1; transition: none; }
 }
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.css">
 </head>
 <body>
 <div id="root"></div>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 
 <script type="text/babel">
@@ -3967,28 +3990,52 @@ function Teachers() {
 const FACILITY_GALLERY = Array.from({length: 34}, (_, i) => ({
   src: `img/fac/${String(i+1).padStart(2,'0')}.jpg`,
   thumb: `img/fac/t/${String(i+1).padStart(2,'0')}.jpg`,
+  mid: `img/fac/m/${String(i+1).padStart(2,'0')}.webp`,
   caption: String(i+1).padStart(3,'0'),
 }));
 
 function Facilities() {
   const [active, setActive] = useState(0);
   const [lightbox, setLightbox] = useState(false);
-  const stageRef = useRef(null);
+  const elRef = useRef(null);
+  const swRef = useRef(null);
 
-  // 썸네일을 누르면 위쪽 큰 사진으로 부드럽게 이동 (특히 모바일에서 필요)
-  const pick = (i) => {
-    if (i === active) { setLightbox(true); return; }
-    setActive(i);
-    const el = stageRef.current;
-    if (el) {
-      const r = el.getBoundingClientRect();
-      if (r.top < 70 || r.bottom > window.innerHeight - 40) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
-  };
+  useEffect(() => {
+    if (!elRef.current || typeof Swiper === "undefined") return;
+    const sw = new Swiper(elRef.current, {
+      effect: "coverflow",
+      centeredSlides: true,
+      slidesPerView: "auto",
+      loop: true,
+      speed: 650,
+      grabCursor: true,
+      threshold: 4,
+      resistanceRatio: 0.6,
+      keyboard: { enabled: true, onlyInViewport: true },
+      coverflowEffect: { rotate: 34, stretch: 0, depth: 260, modifier: 1, scale: 0.8, slideShadows: false },
+      pagination: { el: ".fac-cf-bar", type: "progressbar" },
+      navigation: { prevEl: ".fac-cf-prev", nextEl: ".fac-cf-next" },
+      autoplay: { delay: 3800, disableOnInteraction: true, pauseOnMouseEnter: true },
+      on: {
+        realIndexChange(s) { setActive(s.realIndex); },
+        click(s) {
+          if (s.clickedSlide && s.clickedSlide.classList.contains("swiper-slide-active")) setLightbox(true);
+          else if (s.clickedIndex != null) s.slideTo(s.clickedIndex);
+        },
+      },
+    });
+    swRef.current = sw;
+    // 화면 밖에서는 자동 넘김 정지
+    const io = new IntersectionObserver(([en]) => {
+      if (!sw.autoplay) return;
+      if (en.isIntersecting) sw.autoplay.start(); else sw.autoplay.stop();
+    }, { threshold: 0.2 });
+    io.observe(elRef.current);
+    return () => { io.disconnect(); sw.destroy(true, true); };
+  }, []);
 
-  const current = FACILITY_GALLERY[active];
+  const go = (i) => { setActive(i); if (swRef.current) swRef.current.slideToLoop(i, 0); };
+  const N = FACILITY_GALLERY.length;
 
   return (
     <section className="facilities-section parallax-section" data-parallax="studio" data-screen-label="Facilities" id="facilities">
@@ -3997,54 +4044,22 @@ function Facilities() {
           <div className="sec-eyebrow">FACILITIES</div>
           <h2 className="sec-title">실력은 <span className="accent">환경</span>에서 만들어집니다</h2>
         </div>
+      </div>
 
-        {/* 메인 큰 이미지 */}
-        <div className="fac-stage reveal" ref={stageRef} onClick={() => setLightbox(true)} role="button" tabIndex={0}
-          onKeyDown={(e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); setLightbox(true);}}}
-        >
-          {FACILITY_GALLERY.map((f, i) => {
-            // 활성 + 양옆 2장만 미리 로드 — 나머지는 active로 바뀔 때 로드
-            const offset = Math.abs(i - active);
-            const shouldLoad = offset <= 2 || (active === 0 && i >= FACILITY_GALLERY.length - 2) || (active === FACILITY_GALLERY.length - 1 && i <= 1);
-            return (
-              <div
-                key={i}
-                className={`fac-stage-img ${i === active ? 'active' : ''}`}
-                style={{ backgroundImage: shouldLoad ? `url(${f.src})` : 'none' }}
-                aria-hidden={i !== active}
-              />
-            );
-          })}
-          <div className="fac-stage-grad" />
-          <div className="fac-stage-nav">
-            <button
-              className="fac-stage-btn"
-              onClick={(e) => { e.stopPropagation(); setActive((active - 1 + FACILITY_GALLERY.length) % FACILITY_GALLERY.length); }}
-              aria-label="이전 시설"
-            >‹</button>
-            <button
-              className="fac-stage-btn"
-              onClick={(e) => { e.stopPropagation(); setActive((active + 1) % FACILITY_GALLERY.length); }}
-              aria-label="다음 시설"
-            >›</button>
+      <div className="fac-cf">
+        <div className="swiper fac-cf-swiper" ref={elRef}>
+          <div className="swiper-wrapper">
+            {FACILITY_GALLERY.map((f, i) => (
+              <div className="swiper-slide fac-cf-slide" key={i}>
+                <img src={f.mid} alt="BVD 시설 사진" loading={i < 4 || i > N - 3 ? "eager" : "lazy"} decoding="async" draggable="false" />
+              </div>
+            ))}
           </div>
         </div>
-
-        {/* 썸네일 전체 나열 — 누르면 위 큰 사진이 바뀜 */}
-        <div className="fac-grid reveal" role="list">
-          {FACILITY_GALLERY.map((f, i) => (
-            <button
-              key={i}
-              role="listitem"
-              className={`fac-gthumb ${i === active ? 'active' : ''}`}
-              onClick={() => pick(i)}
-              aria-label={`${f.caption} 보기`}
-              aria-current={i === active ? 'true' : undefined}
-            >
-              <img src={f.thumb} alt={f.caption} loading="lazy" decoding="async" />
-              <span className="fac-thumb-num">{String(i+1).padStart(2,'0')}</span>
-            </button>
-          ))}
+        <div className="wrap fac-cf-ctrl">
+          <button className="fac-cf-btn fac-cf-prev" aria-label="이전 사진">‹</button>
+          <div className="fac-cf-bar" />
+          <button className="fac-cf-btn fac-cf-next" aria-label="다음 사진">›</button>
         </div>
       </div>
 
@@ -4053,8 +4068,8 @@ function Facilities() {
           items={FACILITY_GALLERY}
           index={active}
           onClose={() => setLightbox(false)}
-          onPrev={() => setActive((active - 1 + FACILITY_GALLERY.length) % FACILITY_GALLERY.length)}
-          onNext={() => setActive((active + 1) % FACILITY_GALLERY.length)}
+          onPrev={() => go((active - 1 + N) % N)}
+          onNext={() => go((active + 1) % N)}
         />
       )}
     </section>
