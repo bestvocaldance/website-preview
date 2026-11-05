@@ -2746,6 +2746,32 @@ body.fac-lb-open .nav { display: none; }
   .fac-cf-btn{width:40px;height:40px;flex-basis:40px;font-size:20px}
 }
 @media (prefers-reduced-motion:reduce){.fac-cf-slide img{transition:none}}
+@media (max-width:640px){.fab-stack{transition:opacity .3s ease,transform .3s ease}.fab-stack.fab-hero{opacity:0;transform:translateX(24px);pointer-events:none}}
+/* 첫 화면 두 갈래 버튼 */
+.hero-doors{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;max-width:640px}
+.hero-door{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 22px;border-radius:14px;text-decoration:none;transition:transform .25s ease,background-color .25s ease,box-shadow .25s ease}
+.door-tx{display:flex;flex-direction:column;gap:3px;min-width:0}
+.door-en{font-size:11px;font-weight:700;letter-spacing:.22em;opacity:.7}
+.door-tx b{font-size:22px;font-weight:800;letter-spacing:-.03em;line-height:1.25}
+.door-tx small{font-size:13px;font-weight:500;opacity:.75;line-height:1.4}
+.door-ar{flex:0 0 42px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;transition:transform .25s ease,background-color .25s ease}
+.door-aud{background:#7F77DD;color:#fff;box-shadow:0 18px 40px -18px rgba(127,119,221,.9)}
+.door-aud .door-ar{background:rgba(255,255,255,.18)}
+.door-hob{background:#F4F2EE;color:#16151c;box-shadow:0 18px 40px -20px rgba(255,255,255,.35)}
+.door-hob .door-en{color:#6a61cf;opacity:1}
+.door-hob .door-ar{background:#16151c;color:#fff}
+.hero-door:hover{transform:translateY(-2px)}
+.hero-door:hover .door-ar{transform:translateX(3px)}
+.door-aud:hover{background:#8b84e6}
+.door-hob:hover{background:#fff}
+.hero-door:active{transform:scale(.985)}
+.hero-consult{display:inline-block;margin-top:16px;font-size:14px;font-weight:600;color:#d2c6ff;text-decoration:none;border-bottom:1px solid rgba(210,198,255,.5);padding-bottom:2px}
+@media (max-width:640px){
+  .hero-doors{grid-template-columns:1fr;gap:10px;margin-top:22px}
+  .hero-door{padding:16px 18px}
+  .door-tx b{font-size:20px}
+  .door-ar{flex-basis:38px;width:38px;height:38px}
+}
 .wed-card{display:flex;flex-direction:column;gap:10px;padding:22px 20px;border-radius:14px;background:#1d1828;border:1px solid rgba(127,119,221,.45)}
 .wed-card.is-done{opacity:.55;border-color:rgba(255,255,255,.1)}
 .wed-date{font-size:30px;font-weight:800;color:#fff;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
@@ -3497,14 +3523,25 @@ function Hero({ tweaks }) {
             믿고 맡길 검증된 기획사만, 한 달 4회 이상.<br />
             준비된 아이는 데뷔가 빠릅니다.
           </p>
-          <div className="hero-actions audition-actions">
-            <a className="btn btn-primary" href="consult.html">오디션반 상담 예약 →</a>
-            <a className="btn btn-ghost" href="#wed-audition">이달의 수요일 오디션 ↓</a>
+          <div className="hero-doors" role="group" aria-label="목적 선택">
+            <a className="hero-door door-aud" href="#wed-audition">
+              <span className="door-tx">
+                <span className="door-en">AUDITION</span>
+                <b>오디션 준비</b>
+                <small>기획사 데뷔가 목표라면</small>
+              </span>
+              <span className="door-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+            <a className="hero-door door-hob" href="#class-guide">
+              <span className="door-tx">
+                <span className="door-en">HOBBY CLASS</span>
+                <b>취미로 배우기</b>
+                <small>초등·청소년·성인, 처음이어도 괜찮아요</small>
+              </span>
+              <span className="door-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
           </div>
-          <div style={{marginTop:22,paddingTop:16,borderTop:'1px solid rgba(255,255,255,.25)'}}>
-            <p style={{fontSize:12,color:'#d2c6ff',marginBottom:6}}>취미 보컬·댄스도 함께 운영합니다</p>
-            <p style={{fontSize:15,lineHeight:1.8,color:'#fff'}}>초등·청소년·성인, 처음이어도 괜찮아요. <a href="#class-guide" style={{color:'#d2c6ff',textDecoration:'underline',textUnderlineOffset:3}}>취미·일반 클래스 보기 ↓</a></p>
-          </div>
+          <a className="hero-consult" href="consult.html">체험 수업 · 상담 예약하기 ›</a>
         </div>
       </div>
       <div className="hero-scroll">
@@ -4271,8 +4308,17 @@ function Footer({ tweaks }) {
 
 function FAB({ tweaks }) {
   const ringText = "BEST VOCAL & DANCE · 상담문의 · ";
+  // 휴대폰: 첫 화면(두 갈래 버튼)이 보이는 동안에는 떠 있는 버튼을 숨김
+  const [heroOn, setHeroOn] = useState(true);
+  useEffect(() => {
+    const el = document.getElementById('top');
+    if (!el || typeof IntersectionObserver === 'undefined') { setHeroOn(false); return; }
+    const io = new IntersectionObserver(([en]) => setHeroOn(en.intersectionRatio > 0.35), { threshold: [0, 0.35, 0.6, 1] });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   return (
-    <div className="fab-stack">
+    <div className={"fab-stack" + (heroOn ? " fab-hero" : "")}>
       <a
         href="/consult.html"
         className="fab-circle fab-consult"
