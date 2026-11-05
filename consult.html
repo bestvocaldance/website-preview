@@ -1,6 +1,41 @@
 <!doctype html>
 <html lang="ko">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S2Z14S4SXJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S2Z14S4SXJ');
+</script>
+<!-- BVD 클릭 기록 (전화·카톡·상담예약·인스타·유튜브) -->
+<script>
+(function(){
+  function kind(h){
+    if(!h) return null;
+    if(h.indexOf('tel:')===0) return 'click_call';
+    if(/kakao\.com/.test(h)) return 'click_kakao';
+    if(/consult\.html/.test(h)) return 'click_consult';
+    if(/instagram\.com/.test(h)) return 'click_instagram';
+    if(/youtube\.com\/@|youtube\.com\/c\//.test(h)) return 'click_youtube';
+    return null;
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if(!a) return;
+    var h = a.getAttribute('href'), k = kind(h);
+    if(!k || typeof gtag!=='function') return;
+    var sec = a.closest('section[id]'), fab = a.closest('[class*="fab"]');
+    gtag('event', k, {
+      link_url: h,
+      link_text: (a.textContent||'').replace(/\s+/g,' ').trim().slice(0,60),
+      click_area: fab ? 'floating' : (sec ? sec.id : 'page'),
+      page_path: location.pathname
+    });
+  }, true);
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>상담예약 | 베스트보컬&amp;댄스 BVD STUDIO</title>
@@ -292,6 +327,7 @@ $('#f').addEventListener('submit', async (ev)=>{
   const btn=$('#btn'); btn.disabled=true; btn.textContent='접수 중...';
   try{
     await fetch(ENDPOINT, { method:'POST', mode:'no-cors', body: new URLSearchParams(data) });
+    if (typeof gtag==='function') gtag('event','generate_lead',{form:'consult', courses: data.courses, source: data.source});
     $('#f').style.display='none'; $('.notice').style.display='none';
     $('#done').style.display='block'; window.scrollTo({top:0,behavior:'smooth'});
   }catch(e){

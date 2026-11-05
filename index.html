@@ -10,6 +10,33 @@
   gtag('js', new Date());
   gtag('config', 'G-S2Z14S4SXJ');
 </script>
+<!-- BVD 클릭 기록 (전화·카톡·상담예약·인스타·유튜브) -->
+<script>
+(function(){
+  function kind(h){
+    if(!h) return null;
+    if(h.indexOf('tel:')===0) return 'click_call';
+    if(/kakao\.com/.test(h)) return 'click_kakao';
+    if(/consult\.html/.test(h)) return 'click_consult';
+    if(/instagram\.com/.test(h)) return 'click_instagram';
+    if(/youtube\.com\/@|youtube\.com\/c\//.test(h)) return 'click_youtube';
+    return null;
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if(!a) return;
+    var h = a.getAttribute('href'), k = kind(h);
+    if(!k || typeof gtag!=='function') return;
+    var sec = a.closest('section[id]'), fab = a.closest('[class*="fab"]');
+    gtag('event', k, {
+      link_url: h,
+      link_text: (a.textContent||'').replace(/\s+/g,' ').trim().slice(0,60),
+      click_area: fab ? 'floating' : (sec ? sec.id : 'page'),
+      page_path: location.pathname
+    });
+  }, true);
+})();
+</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>베스트보컬앤댄스 | 광교·상현역 보컬·댄스·오디션 학원</title>
@@ -3893,8 +3920,16 @@ function Reviews() {
 
 function Courses() {
   const total = useMemo(() => COURSE_TRACKS.reduce((s, g) => s + g.steps.reduce((a, st) => a + st.items.length, 0) + (g.extra ? g.extra.items.length : 0), 0), []);
-  const [tab, setTab] = useState(COURSE_TRACKS[0].id);
+  // 광고 연결용: ?track=dance / vocal / kids / exam / audition 으로 들어오면 해당 탭을 열고 커리큘럼으로 이동
+  const initTrack = (() => { try { const q = new URLSearchParams(location.search).get('track'); return COURSE_TRACKS.some(x => x.id === q) ? q : null; } catch (e) { return null; } })();
+  const [tab, setTab] = useState(initTrack || COURSE_TRACKS[0].id);
   const g = COURSE_TRACKS.find(x => x.id === tab);
+  useEffect(() => {
+    if (!initTrack) return;
+    const t = setTimeout(() => { const el = document.getElementById('courses'); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); }, 900);
+    if (typeof gtag === 'function') gtag('event', 'landing_track', { track: initTrack });
+    return () => clearTimeout(t);
+  }, []);
   return (
     <section className="courses-section parallax-section" data-parallax="class-dance" data-screen-label="04 Courses" id="courses">
       <div className="wrap">
