@@ -2765,16 +2765,19 @@ body.fac-lb-open .nav { display: none; }
 .hero-door b{font-size:26px;font-weight:800;letter-spacing:-.03em;line-height:1.25;margin-top:2px}
 .hero-door small{font-size:14px;font-weight:500;line-height:1.6;opacity:.85;padding-right:44px}
 .hero-door small strong{font-weight:800;opacity:1}
-.door-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:12px;padding-right:48px}
-.door-tags i{font-style:normal;font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px}
+.hero-door small{word-break:keep-all}
+.door-tags{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:auto;padding-top:14px;padding-right:48px}
+.door-tags i{font-style:normal;font-size:13px;font-weight:600;padding:0;border-radius:0;background:none!important;white-space:nowrap}
+.door-tags i::before{content:"✓";margin-right:5px;font-weight:800}
 .door-ar{position:absolute;right:20px;bottom:20px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;transition:transform .25s ease}
 .door-aud{background:#7F77DD;color:#fff;box-shadow:0 18px 40px -18px rgba(127,119,221,.9)}
 .door-aud .door-ar{background:rgba(255,255,255,.2)}
-.door-aud .door-tags i{background:rgba(255,255,255,.18);color:#fff}
+.door-aud .door-tags i{color:rgba(255,255,255,.92)}
 .door-hob{background:#F4F2EE;color:#16151c;box-shadow:0 18px 40px -20px rgba(255,255,255,.35)}
 .door-hob .door-en{color:#6a61cf;opacity:1}
 .door-hob .door-ar{background:#16151c;color:#fff}
-.door-hob .door-tags i{background:#e6e2f7;color:#4b44a8}
+.door-hob .door-tags i{color:#3d3858}
+.door-hob .door-tags i::before{color:#6a61cf}
 .hero-door:hover{transform:translateY(-3px)}
 .hero-door:hover .door-ar{transform:translateX(3px)}
 .door-aud:hover{background:#8b84e6}
