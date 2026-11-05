@@ -2751,9 +2751,9 @@ body.fac-lb-open .nav { display: none; }
 @media (min-width: 720px){
   .hero-text{transition:background-color 1.4s ease,box-shadow 1.4s ease,border-color 1.4s ease}
   .hero.is-settled{height:auto;min-height:0;flex-direction:column;overflow:visible}
-  .hero.is-settled .hero-video{position:relative;inset:auto;width:100%;aspect-ratio:16/9;max-height:calc(100svh - 56px)}
-  .hero.is-settled .hero-video-wrap iframe{width:100%;height:100%;aspect-ratio:auto;max-height:none}
-  .hero.is-settled .hero-content{justify-content:flex-start;padding:44px 32px 56px;max-width:1200px;margin:0 auto}
+  .hero.is-settled .hero-video{position:relative;inset:auto;width:100%;flex-shrink:0;height:min(56.25vw, calc(100svh - 300px));min-height:340px}
+  .hero.is-settled .hero-video-wrap iframe{height:100%;width:auto;aspect-ratio:16/9;max-width:100%;max-height:100%}
+  .hero.is-settled .hero-content{flex-shrink:0;justify-content:flex-start;padding:36px 32px 56px;max-width:1200px;margin:0 auto}
   .hero.is-settled .hero-text{background:transparent;box-shadow:none;border-color:transparent;max-width:100%}
   .hero.is-settled .hero-scroll{display:none}
 }
@@ -3524,18 +3524,28 @@ function Hero({ tweaks }) {
     let done = false;
     const settle = () => {
       if (done) return; done = true;
-      window.removeEventListener('scroll', settle);
+      window.removeEventListener('scroll', onScroll);
+      const vid = hero.querySelector('.hero-video');
+      const h0 = hero.getBoundingClientRect().height;
       const a = el.getBoundingClientRect();
+      const v0 = vid ? vid.getBoundingClientRect() : null;
       hero.classList.add('is-settled');
+      const h1 = hero.getBoundingClientRect().height;
       const b = el.getBoundingClientRect();
-      const dx = a.left - b.left, dy = a.top - b.top;
-      if (el.animate && (Math.abs(dy) > 2 || Math.abs(dx) > 2)) {
-        el.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }], { duration: 1600, easing: 'cubic-bezier(.45,.05,.25,1)' });
-      }
+      const v1 = vid ? vid.getBoundingClientRect() : null;
+      if (!el.animate) return;
+      const opt = { duration: 1600, easing: 'cubic-bezier(.45,.05,.25,1)' };
+      // 영상 아래 검은 공간이 아래로 열리듯 커지고, 문구가 그 자리로 내려와 앉음
+      hero.style.overflow = 'hidden';
+      const ha = hero.animate([{ height: h0 + 'px' }, { height: h1 + 'px' }], opt);
+      ha.onfinish = ha.oncancel = () => { hero.style.overflow = ''; };
+      el.animate([{ transform: `translate(${a.left - b.left}px, ${a.top - b.top}px)` }, { transform: 'none' }], opt);
+      if (vid && v0 && v1) vid.animate([{ height: v0.height + 'px', transform: `translateY(${v0.top - v1.top}px)` }, { height: v1.height + 'px', transform: 'none' }], opt);
     };
+    const onScroll = () => { if (window.scrollY > 20) settle(); };
     const timer = setTimeout(settle, 1000);
-    window.addEventListener('scroll', settle, { passive: true });
-    return () => { clearTimeout(timer); window.removeEventListener('scroll', settle); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => { clearTimeout(timer); window.removeEventListener('scroll', onScroll); };
   }, []);
   return (
     <header className="hero" id="top" data-screen-label="01 Hero" ref={heroRef}>
