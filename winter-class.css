@@ -25,3 +25,31 @@
 .hero.is-settled .hero-content.wrap{width:100%;max-width:none;padding-left:0;padding-right:0}
 .hero.is-settled .hero-text{width:100%;max-width:none}
 .winter-experience .class-showcase{width:100%}
+
+/* Snow and the coloured backdrop never travel or dissolve with the copy. */
+.winter-experience .slide-viewport{background:radial-gradient(ellipse at 10% 15%,#7f77dd28,transparent 58%),radial-gradient(ellipse at 95% 50%,#7f77dd22,transparent 65%),#17131f}
+.winter-experience .slide-viewport>.snowfall{z-index:0}
+.winter-experience .slide-track{position:relative;z-index:1}
+.winter-experience .slide-track>.winter,.winter-experience .slide-track>.purpose-slide{background:transparent}
+.winter-experience .slide-track>section.is-entering,.winter-experience .slide-track>section.is-leaving{animation:none;transform:none;filter:none}
+.winter-experience .slide-track>section.is-leaving{opacity:1}
+.winter-experience section.is-entering>.wrap{animation:light-appear 2000ms cubic-bezier(.2,.65,.3,1) both}
+.winter-experience section.is-leaving>.wrap{animation:light-disperse 1800ms cubic-bezier(.4,0,.6,1) both}
+.winter-experience .flake{display:none}
+@media(prefers-reduced-motion:reduce){.winter-experience section.is-entering>.wrap,.winter-experience section.is-leaving>.wrap{animation:none}.winter-experience .slide-track>section.is-leaving{visibility:hidden;opacity:0}}
+
+@media(max-width:719px){.hero{padding-top:96px}.hero.is-settled .hero-video{opacity:1;transition:none}.hero.is-settled .winter-experience .opening-screen{display:none}.hero.is-settled .hero-content{overflow-anchor:none}}
+/* PC keeps the final geometry from the first frame. The opening copy is an
+   overlay, so dismissing it never stretches the video, backdrop or page. */
+@media(min-width:720px){
+ .hero{height:auto;min-height:0;flex-direction:column;overflow:visible;padding-top:96px}
+ .hero .hero-video{position:relative;inset:auto;width:100%;flex-shrink:0;height:min(56.25vw,calc(100svh - 300px));min-height:340px}
+ .hero .hero-video-wrap iframe{height:100%;width:auto;aspect-ratio:16/9;max-width:100%;max-height:100%}
+ .hero .hero-content.wrap{width:100%;max-width:none;margin:0;padding:32px 0 56px;justify-content:flex-start;flex-shrink:0}
+ .hero .hero-text{max-width:none;width:100%}
+ .hero .winter-experience .class-showcase{display:block}
+ .hero:not(.is-settled) .winter-experience .opening-screen{position:fixed;inset:96px 0 0;z-index:10;min-height:0;padding:24px 0;background:#000;display:flex;align-items:center}
+ .hero:not(.is-settled) .winter-experience .opening-pair{width:min(1200px,calc(100% - 80px));margin:auto}
+ .hero:not(.is-settled) .winter-copy,.hero:not(.is-settled) .offer,.hero:not(.is-settled) .winter-foot{opacity:0}
+ .hero .hero-scroll{display:none}
+}
