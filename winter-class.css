@@ -62,3 +62,12 @@
 @media(max-width:719px){.winter-experience .free-trial-note{padding:19px 18px;margin-bottom:24px}.winter-experience .free-trial-note strong{font-size:23px}.winter-experience .free-trial-note p{font-size:12px}.winter-experience .free-trial-check{right:12px;font-size:64px}}
 
 .winter-experience .free-trial-note{margin:0 0 22px;padding:20px}.winter-experience .free-trial-note strong{font-size:24px}.winter-experience .free-trial-note p{font-size:13px}
+
+/* 겨울방학 특강 수강생 오디션 참여 혜택 */
+.winter-experience .winter-audition-benefit{padding:20px 22px;margin:0 0 18px;border:1px solid #bfb2ff;border-radius:12px;background:linear-gradient(125deg,#7f77dd50,#b6a5ff1a);box-shadow:0 8px 30px #08041020}
+.winter-experience .winter-audition-benefit>span{display:inline-block;padding:5px 9px;border-radius:4px;background:#d9d0ff;color:#28203f;font-size:12px;font-weight:800;letter-spacing:-.02em}
+.winter-experience .winter-audition-benefit strong{display:block;margin-top:10px;font-size:29px;line-height:1.25;letter-spacing:-.045em;font-weight:850;color:#fff}
+.winter-experience .winter-audition-benefit p{margin:10px 0 0;font-size:13px;line-height:1.6;color:#e0d9f6}
+.winter-experience .opening-audition-benefit{margin:15px 0;padding:12px 14px;border-left:3px solid #b6a5ff;background:#7f77dd20;color:#ded6fa;font-size:12px;line-height:1.6}
+.winter-experience .opening-audition-benefit b{font-size:12px;color:#cbbdff}.winter-experience .opening-audition-benefit strong{font-size:17px;color:#fff}
+@media(max-width:719px){.winter-experience .winter-audition-benefit{padding:17px 18px}.winter-experience .winter-audition-benefit strong{font-size:25px}.winter-experience .winter-audition-benefit p{font-size:12px}.winter-experience .opening-audition-benefit{font-size:10px;padding:10px;margin:12px 0}.winter-experience .opening-audition-benefit b{font-size:10px}.winter-experience .opening-audition-benefit strong{font-size:14px}}
