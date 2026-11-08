@@ -20,3 +20,8 @@
 
 .winter-experience h1,.winter-experience h2,.winter-experience p{word-break:keep-all}
 @media(max-width:719px){.winter-experience .winter h2{font-size:21px}.hero:not(.is-settled) .hero-content{justify-content:flex-start}}
+
+/* Under-video sections use the full viewport; only their text is contained. */
+.hero.is-settled .hero-content.wrap{width:100%;max-width:none;padding-left:0;padding-right:0}
+.hero.is-settled .hero-text{width:100%;max-width:none}
+.winter-experience .class-showcase{width:100%}
