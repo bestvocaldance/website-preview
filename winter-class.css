@@ -53,3 +53,12 @@
  .hero:not(.is-settled) .winter-copy,.hero:not(.is-settled) .offer,.hero:not(.is-settled) .winter-foot{opacity:0}
  .hero .hero-scroll{display:none}
 }
+
+.winter-experience .free-trial-note{position:relative;isolation:isolate;margin:0 0 28px;padding:21px 24px 22px;border:1px solid #dad4ff;border-radius:12px;background:linear-gradient(115deg,#f2efff,#e5deff);color:#221b3f;box-shadow:0 10px 32px #08041024;overflow:hidden}
+.winter-experience .free-trial-label{display:block;color:#6354ad;letter-spacing:.1em;font-size:10px;font-weight:800;margin-bottom:10px}
+.winter-experience .free-trial-note strong{position:relative;display:block;font-size:27px;line-height:1.3;letter-spacing:-.045em;font-weight:850;z-index:1}
+.winter-experience .free-trial-note p{position:relative;font-size:14px;color:#665c7d;line-height:1.6;margin:8px 0 0;z-index:1}
+.winter-experience .free-trial-check{position:absolute;right:20px;top:50%;transform:translateY(-50%) rotate(-8deg);font-size:82px;font-weight:800;color:#7765c4;opacity:.13;z-index:0}
+@media(max-width:719px){.winter-experience .free-trial-note{padding:19px 18px;margin-bottom:24px}.winter-experience .free-trial-note strong{font-size:23px}.winter-experience .free-trial-note p{font-size:12px}.winter-experience .free-trial-check{right:12px;font-size:64px}}
+
+.winter-experience .free-trial-note{margin:0 0 22px;padding:20px}.winter-experience .free-trial-note strong{font-size:24px}.winter-experience .free-trial-note p{font-size:13px}
