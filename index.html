@@ -2,6 +2,13 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<script>
+// Deep links keep their explicit destination; ordinary and ad entries start at top.
+if (!location.hash && 'scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.addEventListener('pageshow', function () {
+  if (!location.hash) window.scrollTo({top:0,left:0,behavior:'instant'});
+});
+</script>
    <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S2Z14S4SXJ"></script>
 <script>
@@ -3529,7 +3536,7 @@ function Hero({ tweaks }) {
   const textRef = useRef(null);
   React.useLayoutEffect(() => {
     // A normal homepage entry starts at the video, not a restored lower section.
-    if (!location.hash && !new URLSearchParams(location.search).get('track')) {
+    if (!location.hash) {
       if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     }
@@ -3999,21 +4006,13 @@ function Reviews() {
 
 function Courses() {
   const total = useMemo(() => COURSE_TRACKS.reduce((s, g) => s + g.steps.reduce((a, st) => a + st.items.length, 0) + (g.extra ? g.extra.items.length : 0), 0), []);
-  // 광고 연결용: ?track=dance / vocal / kids / exam / audition 으로 들어오면 해당 탭을 열고 커리큘럼으로 이동
+  // 광고 연결용: 과목 탭만 미리 선택합니다. 첫 진입 화면을 자동으로 이동하지 않습니다.
   const initTrack = (() => { try { const q = new URLSearchParams(location.search).get('track'); return COURSE_TRACKS.some(x => x.id === q) ? q : null; } catch (e) { return null; } })();
   const [tab, setTab] = useState(initTrack || COURSE_TRACKS[0].id);
   const g = COURSE_TRACKS.find(x => x.id === tab);
   useEffect(() => {
     if (!initTrack) return;
-    const t = setTimeout(() => {
-      if (window.bvdSettleHero) window.bvdSettleHero();
-      requestAnimationFrame(() => {
-        const el = document.getElementById('courses');
-        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 110, behavior: 'smooth' });
-      });
-    }, 900);
     if (typeof gtag === 'function') gtag('event', 'landing_track', { track: initTrack });
-    return () => clearTimeout(t);
   }, []);
   return (
     <section className="courses-section parallax-section" data-parallax="class-dance" data-screen-label="04 Courses" id="courses">
