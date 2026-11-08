@@ -73,3 +73,6 @@
 @media(max-width:719px){.winter-experience .winter-audition-benefit{padding:17px 18px}.winter-experience .winter-audition-benefit strong{font-size:25px}.winter-experience .winter-audition-benefit p{font-size:12px}.winter-experience .opening-audition-benefit{font-size:10px;padding:10px;margin:12px 0}.winter-experience .opening-audition-benefit b{font-size:10px}.winter-experience .opening-audition-benefit strong{font-size:14px}}
 
 .winter-experience .winter-period{display:table;margin:14px 0 0;padding:9px 13px;border:1px solid #b5a5ff90;background:#7f77dd25;border-radius:6px;color:#e1d8ff;font-size:18px;line-height:1.35;font-weight:750;letter-spacing:.025em}.winter-experience .opening-period{font-size:14px;margin:12px 0}.winter-experience .winter .winter-period+h2{margin-top:19px}@media(max-width:719px){.winter-experience .winter-period{font-size:16px}.winter-experience .opening-period{font-size:10px;padding:7px}}
+/* 두 안내 슬라이드의 대표 제목 크기와 굵기 통일 */
+.winter-experience .season-heading,.winter-experience .purpose-slide h2{font-size:66px;line-height:1.12;font-weight:850;letter-spacing:-.065em;text-shadow:0 0 40px #aaa0ff20}
+@media(max-width:760px){.winter-experience .season-heading,.winter-experience .purpose-slide h2{font-size:48px}}
