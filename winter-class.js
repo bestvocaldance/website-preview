@@ -12,19 +12,21 @@ function show(index) {
  const next=(index+slides.length)%slides.length;
  if(next===current)return;
  const previous=current;
+ const animate=previous>=0&&!reduced.matches&&!paused&&!hovered&&!keyboardFocus&&heldPointers.size===0;
  current=next;
  slides.forEach((slide,i)=>{
   slide.classList.toggle('is-active',i===current);
-  slide.classList.toggle('is-entering',i===current&&previous>=0);
-  slide.classList.toggle('is-leaving',i===previous);
+  slide.classList.toggle('is-entering',i===current&&animate);
+  slide.classList.toggle('is-leaving',i===previous&&animate);
   slide.inert=i!==current;
   slide.setAttribute('aria-hidden',String(i!==current));
  });
- if(previous>=0&&!reduced.matches){
+ if(animate){
   section.classList.remove('is-changing');
   void section.offsetWidth;
   section.classList.add('is-changing');
  }
+ if(!animate)section.classList.remove('is-changing');
  dots.forEach((dot,i)=>{dot.classList.toggle('active',i===current);dot.setAttribute('aria-pressed',String(i===current));});
 }
 function stop(){clearInterval(timer);timer=null;section.classList.add("is-frozen");}
