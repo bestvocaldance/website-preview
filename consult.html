@@ -83,9 +83,11 @@
     background-repeat:no-repeat;background-position:right 12px center}
   .phone{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:6px;align-items:center}
   .phone span{color:var(--sub)}
-  .seg{display:flex;gap:8px;flex-wrap:wrap}
+  .seg{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
   .seg input{position:absolute;opacity:0;pointer-events:none}
   .seg label{padding:10px 16px;border-radius:999px;border:1px solid #3a3a52;color:#d0d0de;font-size:14.5px;cursor:pointer;user-select:none}
+  .seg label.two{padding:6px 16px;text-align:center;line-height:1.25}
+  .seg label small{display:block;font-size:11.5px;font-weight:500;opacity:.75;margin-top:1px}
   .seg input:checked+label{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:700}
   .seg input:focus-visible+label{box-shadow:0 0 0 3px rgba(127,119,221,.35)}
   .slot{display:grid;grid-template-columns:1.3fr 1fr;gap:8px}
@@ -179,7 +181,7 @@
         <div>
           <div class="seg" id="courses">
             <input type="checkbox" id="c1" value="아이돌 오디션반"><label for="c1">아이돌 오디션반</label>
-            <input type="checkbox" id="c2" value="보컬"><label for="c2">보컬</label>
+            <input type="checkbox" id="c2" value="보컬"><label for="c2" class="two">보컬<small>취미 / 전문</small></label>
             <input type="checkbox" id="c3" value="댄스"><label for="c3">댄스</label>
             <input type="checkbox" id="c4" value="키즈"><label for="c4">키즈</label>
             <input type="checkbox" id="c5" value="성인반"><label for="c5">성인반</label>
@@ -237,7 +239,7 @@
 
   <div class="contact">
     <a href="tel:0312157770">📞 전화 상담<small>031-215-7770 / 7772</small></a>
-    <a href="https://www.instagram.com/bestvocalndance" target="_blank" rel="noopener">💬 인스타 DM<small>@bestvocalndance</small></a>
+    <a href="https://pf.kakao.com/_TDxjQxb/chat" target="_blank" rel="noopener">💬 카카오톡 상담<small>카카오 채널 1:1 채팅</small></a>
   </div>
 </main>
 
