@@ -222,9 +222,9 @@
           }, true);
         } }, '이 회차 지우기')),
       r.isCurrent ? h('div', { class: 'links' },
-        h('div', { class: 'link' }, h('b', { text: '보컬·댄스 둘 다 보는 회사용 링크' }), h('code', { text: b + '?t=both' }),
+        h('div', { class: 'link' }, h('b', { text: '보컬·댄스 회사용 링크' }), h('code', { text: b + '?t=both' }),
           h('button', { class: 'btn', type: 'button', onclick: function () { copy(b + '?t=both'); } }, '링크 복사')),
-        h('div', { class: 'link' }, h('b', { text: '하나만 보는 회사용 링크' }), h('code', { text: b + '?t=one' }),
+        h('div', { class: 'link' }, h('b', { text: '보컬·댄스 택1 회사용 링크' }), h('code', { text: b + '?t=one' }),
           h('button', { class: 'btn', type: 'button', onclick: function () { copy(b + '?t=one'); } }, '링크 복사'))) : null));
 
     wrap.appendChild(h('div', { class: 'bar noprint' },
