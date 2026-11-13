@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>오디션 신청 | 베스트보컬&amp;댄스</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="common.css">
+</head>
+<body>
+<header class="hero">
+  <div class="brand"><span class="dot"></span>BEST VOCAL &amp; DANCE · BVD STUDIO</div>
+  <h1 id="title">오디션 신청</h1>
+  <p id="sub">불러오는 중입니다…</p>
+  <span class="badge" id="badge" hidden></span>
+</header>
+<main>
+  <div class="notice" id="notice" hidden></div>
+
+  <form id="form" novalidate hidden>
+    <div class="notice" id="found" hidden></div>
+
+    <div class="section" style="margin-top:16px">
+      <h2>기본 정보</h2>
+      <div class="row" id="r-name">
+        <label class="k" for="name">이름<span class="req">*</span></label>
+        <div><input id="name" type="text" autocomplete="name" placeholder="본인 이름" maxlength="30">
+          <div class="err">이름을 적어 주세요.</div></div>
+      </div>
+      <div class="row" id="r-gender">
+        <span class="k">성별<span class="req">*</span></span>
+        <div><div class="seg" role="radiogroup" aria-label="성별">
+          <input type="radio" id="g1" name="gender" value="여자"><label for="g1">여자</label>
+          <input type="radio" id="g2" name="gender" value="남자"><label for="g2">남자</label>
+        </div><div class="err">성별을 선택해 주세요.</div></div>
+      </div>
+      <div class="row" id="r-birth">
+        <span class="k">생년월일<span class="req">*</span></span>
+        <div><div class="grid3">
+          <select id="by" aria-label="태어난 해"></select>
+          <select id="bm" aria-label="태어난 달"></select>
+          <select id="bd" aria-label="태어난 날"></select>
+        </div><div class="err">생년월일을 선택해 주세요.</div></div>
+      </div>
+      <div class="row" id="r-body">
+        <span class="k">키 / 몸무게<span class="req">*</span></span>
+        <div><div class="grid2">
+          <select id="height" aria-label="키"></select>
+          <select id="weight" aria-label="몸무게"></select>
+        </div><div class="err">키와 몸무게를 선택해 주세요.</div></div>
+      </div>
+      <div class="row" id="r-part" hidden>
+        <span class="k">지원 파트<span class="req">*</span></span>
+        <div><div class="seg" role="radiogroup" aria-label="지원 파트">
+          <input type="radio" id="p1" name="part" value="vocal"><label for="p1">보컬</label>
+          <input type="radio" id="p2" name="part" value="dance"><label for="p2">댄스</label>
+        </div><div class="hint">이번 오디션은 보컬과 댄스 중 하나만 지원합니다.</div>
+        <div class="err">지원 파트를 선택해 주세요.</div></div>
+      </div>
+    </div>
+
+    <div class="section" id="s-vocal">
+      <h2>보컬</h2>
+      <div class="row" id="r-vt">
+        <label class="k" for="vTitle">곡 제목<span class="req">*</span></label>
+        <div><input id="vTitle" type="text" maxlength="80" placeholder="예) 밤편지"><div class="err">곡 제목을 적어 주세요.</div></div>
+      </div>
+      <div class="row" id="r-va">
+        <label class="k" for="vArtist">아티스트<span class="req">*</span></label>
+        <div><input id="vArtist" type="text" maxlength="60" placeholder="예) 아이유"><div class="err">아티스트 이름을 적어 주세요.</div></div>
+      </div>
+    </div>
+
+    <div class="section" id="s-dance">
+      <h2>댄스</h2>
+      <div class="row" id="r-dt">
+        <label class="k" for="dTitle">곡 제목<span class="req">*</span></label>
+        <div><input id="dTitle" type="text" maxlength="80" placeholder="예) Supernova"><div class="err">곡 제목을 적어 주세요.</div></div>
+      </div>
+      <div class="row" id="r-da">
+        <label class="k" for="dArtist">아티스트<span class="req">*</span></label>
+        <div><input id="dArtist" type="text" maxlength="60" placeholder="예) aespa"><div class="err">아티스트 이름을 적어 주세요.</div></div>
+      </div>
+      <div class="row" id="r-du">
+        <label class="k" for="dUrl">유튜브 링크<span class="req">*</span></label>
+        <div><input id="dUrl" type="url" inputmode="url" maxlength="300" placeholder="https://youtu.be/…">
+          <div class="hint">틀어 드릴 영상의 유튜브 주소를 붙여 넣어 주세요.</div>
+          <div class="err">유튜브 주소(https://youtu.be/… 또는 https://www.youtube.com/…)를 넣어 주세요.</div></div>
+      </div>
+      <div class="row" id="r-rng">
+        <span class="k">구간<span class="req">*</span></span>
+        <div>
+          <div class="range"><span>시작</span><select id="sm" aria-label="시작 분"></select><select id="ss" aria-label="시작 초"></select></div>
+          <div class="range"><span>끝</span><select id="em" aria-label="끝 분"></select><select id="es" aria-label="끝 초"></select></div>
+          <div class="hint">유튜브 영상에서 틀 부분의 시작과 끝 시간입니다. 예) 0분 45초 ~ 1분 30초</div>
+          <div class="err">구간을 선택해 주세요. 끝이 시작보다 뒤여야 합니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="agree" id="r-agree">
+      <input type="checkbox" id="agree">
+      <div>
+        <label for="agree"><b style="color:#e6e6ef">개인정보 수집·이용에 동의합니다.</b> (필수)</label>
+        <details><summary>자세히 보기</summary>
+          수집 항목: 이름, 성별, 생년월일, 키, 몸무게, 지원 곡 정보 · 이용 목적: 학원 내 기획사 오디션 진행과 순서 안내 ·
+          보관 기간: 해당 오디션이 끝난 뒤 삭제 · 만 14세 미만은 보호자의 동의를 받은 뒤 신청해 주세요.
+        </details>
+        <div class="err">동의에 체크해 주세요.</div>
+      </div>
+    </div>
+
+    <p class="formerr" id="formerr" role="alert" hidden></p>
+    <button class="submit" type="submit" id="btn">오디션 신청하기</button>
+  </form>
+
+  <div class="done" id="done" hidden>
+    <h2 id="doneTitle">접수되었습니다</h2>
+    <div class="num" id="doneNum"></div>
+    <p id="doneText"></p>
+    <p style="margin-top:18px"><button class="btn" type="button" id="again">신청 내용 수정하기</button></p>
+  </div>
+</main>
+<footer>베스트보컬&amp;댄스 · 신분당선 상현역<br>문의는 학원으로 연락해 주세요.</footer>
+
+<script src="config.js"></script>
+<script src="common.js"></script>
+<script>
+(function () {
+  'use strict';
+  var A = window.AUD, h = A.h, $ = function (id) { return document.getElementById(id); };
+  var MODE = /[?&]t=one(&|$)/.test(location.search) ? 'one' : 'both';
+  var round = null, lookupTimer = null, lastLookup = '';
+
+  function opt(sel, value, label) { sel.appendChild(h('option', { value: value, text: label })); }
+  function fill(sel, first, from, to, fmt, step) {
+    opt(sel, '', first);
+    var i; step = step || 1;
+    if (from <= to) for (i = from; i <= to; i += step) opt(sel, String(i), fmt(i));
+    else for (i = from; i >= to; i -= step) opt(sel, String(i), fmt(i));
+  }
+  var nowY = new Date().getFullYear();
+  fill($('by'), '년', nowY - 5, nowY - 45, function (v) { return v + '년'; });
+  fill($('bm'), '월', 1, 12, function (v) { return v + '월'; });
+  fill($('bd'), '일', 1, 31, function (v) { return v + '일'; });
+  fill($('height'), '키', 100, 200, function (v) { return v + ' cm'; });
+  fill($('weight'), '몸무게', 20, 120, function (v) { return v + ' kg'; });
+  ['sm', 'em'].forEach(function (id) { fill($(id), '분', 0, 9, function (v) { return v + '분'; }); });
+  ['ss', 'es'].forEach(function (id) { fill($(id), '초', 0, 59, function (v) { return v + '초'; }); });
+
+  function radio(name) { var el = document.querySelector('input[name=' + name + ']:checked'); return el ? el.value : ''; }
+  function setRadio(name, v) { Array.prototype.forEach.call(document.querySelectorAll('input[name=' + name + ']'), function (el) { el.checked = el.value === v; }); }
+  function part() { return MODE === 'both' ? 'both' : radio('part'); }
+  function birth() {
+    var y = $('by').value, m = $('bm').value, d = $('bd').value;
+    if (!y || !m || !d) return '';
+    var dt = new Date(Date.UTC(+y, +m - 1, +d));
+    if (dt.getUTCMonth() !== +m - 1) return ''; // 2월 30일 같은 날짜
+    return y + '-' + ('0' + m).slice(-2) + '-' + ('0' + d).slice(-2);
+  }
+  function secs(mId, sId) { var m = $(mId).value, s = $(sId).value; return (m === '' || s === '') ? null : (+m) * 60 + (+s); }
+
+  function showParts() {
+    var p = part();
+    $('r-part').hidden = MODE !== 'one';
+    $('s-vocal').hidden = !(p === 'both' || p === 'vocal');
+    $('s-dance').hidden = !(p === 'both' || p === 'dance');
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('input[name=part]'), function (el) { el.addEventListener('change', showParts); });
+
+  function mark(id, bad) { $(id).classList.toggle('invalid', !!bad); return !!bad; }
+  function validate() {
+    var p = part(), bad = false, first = null;
+    function chk(id, isBad) { if (mark(id, isBad)) { bad = true; if (!first) first = id; } }
+    chk('r-name', $('name').value.trim().length < 2);
+    chk('r-gender', !radio('gender'));
+    chk('r-birth', !birth());
+    chk('r-body', !$('height').value || !$('weight').value);
+    if (MODE === 'one') chk('r-part', !p);
+    if (p === 'both' || p === 'vocal') { chk('r-vt', !$('vTitle').value.trim()); chk('r-va', !$('vArtist').value.trim()); }
+    if (p === 'both' || p === 'dance') {
+      chk('r-dt', !$('dTitle').value.trim()); chk('r-da', !$('dArtist').value.trim());
+      chk('r-du', !A.playUrl($('dUrl').value.trim()));
+      var s = secs('sm', 'ss'), e = secs('em', 'es');
+      chk('r-rng', s === null || e === null || e <= s);
+    }
+    chk('r-agree', !$('agree').checked);
+    if (first) $(first).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return !bad;
+  }
+
+  function payload() {
+    return { mode: MODE, part: part(), name: $('name').value.trim(), gender: radio('gender'), birth: birth(),
+      height: +$('height').value, weight: +$('weight').value,
+      vTitle: $('vTitle').value.trim(), vArtist: $('vArtist').value.trim(),
+      dTitle: $('dTitle').value.trim(), dArtist: $('dArtist').value.trim(), dUrl: $('dUrl').value.trim(),
+      dStart: secs('sm', 'ss'), dEnd: secs('em', 'es') };
+  }
+
+  function loadEntry(e) {
+    setRadio('gender', e.gender); $('height').value = String(e.height); $('weight').value = String(e.weight);
+    if (MODE === 'one' && e.part !== 'both') setRadio('part', e.part);
+    $('vTitle').value = e.vTitle || ''; $('vArtist').value = e.vArtist || '';
+    $('dTitle').value = e.dTitle || ''; $('dArtist').value = e.dArtist || ''; $('dUrl').value = e.dUrl || '';
+    if (e.dStart !== null && e.dStart !== undefined) {
+      $('sm').value = String(Math.floor(e.dStart / 60)); $('ss').value = String(e.dStart % 60);
+      $('em').value = String(Math.floor(e.dEnd / 60)); $('es').value = String(e.dEnd % 60);
+    }
+    showParts();
+    $('btn').textContent = '수정 내용 저장하기';
+  }
+
+  // 이름과 생년월일이 다 채워지면 이미 신청한 내용이 있는지 확인합니다.
+  function maybeLookup() {
+    var nm = $('name').value.trim(), b = birth(), key = nm + '|' + b;
+    if (nm.length < 2 || !b || key === lastLookup) return;
+    clearTimeout(lookupTimer);
+    lookupTimer = setTimeout(function () {
+      lastLookup = key;
+      A.rpc('aud_lookup', { name: nm, birth: b }).then(function (d) {
+        var box = $('found'); box.textContent = ''; box.hidden = !d.entry;
+        if (!d.entry) { $('btn').textContent = '오디션 신청하기'; return; }
+        box.appendChild(h('div', null, h('b', { text: nm + '님은 이미 신청하셨습니다. (현재 ' + d.entry.no + '번)' }),
+          h('br'), '신청 내용을 불러와서 고칠 수 있습니다. 곡이나 구간을 바꾸면 순서가 맨 뒤로 갑니다.'));
+        box.appendChild(h('p', { style: 'margin:10px 0 0' }, h('button', { class: 'btn primary', type: 'button', id: 'loadBtn',
+          onclick: function () { loadEntry(d.entry); box.textContent = ''; box.appendChild(h('b', { text: '신청 내용을 불러왔습니다. 고친 뒤 아래 버튼을 눌러 주세요.' })); } }, '신청 내용 불러오기')));
+      }, function () {});
+    }, 500);
+  }
+  ['name', 'by', 'bm', 'bd'].forEach(function (id) { $(id).addEventListener('change', maybeLookup); $(id).addEventListener('blur', maybeLookup); });
+
+  // 고치기 시작하면 그 칸의 빨간 안내는 지웁니다.
+  function clearMark(ev) { var n = ev.target; while (n && n !== $('form')) { if (n.classList && n.classList.contains('invalid')) n.classList.remove('invalid'); n = n.parentNode; } }
+  $('form').addEventListener('input', clearMark); $('form').addEventListener('change', clearMark);
+
+  $('form').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var fe = $('formerr'); fe.hidden = true;
+    if (!validate()) return;
+    var btn = $('btn'), label = btn.textContent; btn.disabled = true; btn.textContent = '보내는 중…';
+    A.rpc('aud_submit', payload()).then(function (d) {
+      $('form').hidden = true; $('done').hidden = false;
+      $('doneTitle').textContent = d.isNew ? '접수되었습니다' : '수정되었습니다';
+      $('doneNum').textContent = d.no + '번';
+      $('doneText').textContent = (d.moved ? '곡을 바꿔서 순서가 맨 뒤로 옮겨졌습니다. ' : '') + '현재 ' + d.total + '명 중 ' + d.no +
+        '번째입니다. 순서는 학원 사정에 따라 바뀔 수 있습니다. 마감(' + A.dateLabel(round.date) + ' ' + A.timeLabel(round.closeAt) + ') 전까지는 같은 링크에서 수정할 수 있습니다.';
+      $('done').scrollIntoView({ block: 'center' });
+    }, function (e) { fe.textContent = e.message; fe.hidden = false; }).then(function () { btn.disabled = false; btn.textContent = label; });
+  });
+  $('again').addEventListener('click', function () {
+    $('done').hidden = true; $('form').hidden = false; lastLookup = ''; maybeLookup(); window.scrollTo(0, 0);
+  });
+
+  function notice(cls, text) { var n = $('notice'); n.className = 'notice ' + cls; n.textContent = text; n.hidden = false; }
+  A.rpc('aud_public_round').then(function (d) {
+    round = d.round;
+    if (!round) { $('sub').textContent = '지금 접수 중인 오디션이 없습니다.'; notice('warn', '다음 오디션 접수가 열리면 학원에서 안내해 드립니다.'); return; }
+    $('title').textContent = round.company + ' 오디션 신청';
+    $('sub').textContent = A.dateLabel(round.date) + ' 오디션 · ' + (MODE === 'one' ? '보컬과 댄스 중 하나만 지원' : '보컬 · 댄스 모두 지원');
+    var badge = $('badge'); badge.hidden = false;
+    if (round.closed) {
+      badge.className = 'badge closed'; badge.textContent = '접수 마감';
+      notice('bad', '접수가 마감되었습니다. (마감: ' + A.dateLabel(round.date) + ' ' + A.timeLabel(round.closeAt) + ') 문의는 학원으로 연락해 주세요.');
+      return;
+    }
+    badge.textContent = '접수 마감: ' + A.dateLabel(round.date) + ' ' + A.timeLabel(round.closeAt);
+    notice('', '접수한 순서대로 오디션 순서가 정해집니다. 신청 후 곡을 바꾸려면 같은 링크에서 이름과 생년월일을 다시 넣으면 됩니다.');
+    $('form').hidden = false; showParts();
+  }, function (e) { $('sub').textContent = '불러오지 못했습니다.'; notice('bad', e.message); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>오디션 명단 | 베스트보컬&amp;댄스</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="common.css">
+<style>
+  main{max-width:1180px}
+  .login{max-width:420px;margin:40px auto 0}
+  .login .section{padding:18px}
+  .login h2{margin:0 0 6px;font-size:18px;color:var(--text)}
+  .login p{color:var(--sub);font-size:14px;line-height:1.7;margin:0 0 14px}
+  .login input{margin-bottom:10px}
+  .bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  .bar .grow{flex:1 1 220px;min-width:0}
+  .bar select{max-width:100%}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:14px}
+  .card h2{margin:0;font-size:22px;letter-spacing:-.01em}
+  .card .meta{color:var(--sub);font-size:14px;margin-top:6px;line-height:1.7}
+  .tag{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12.5px;font-weight:700;border:1px solid rgba(127,119,221,.5);color:#d9d6ff;background:rgba(127,119,221,.12);vertical-align:middle;margin-left:6px}
+  .tag.closed{border-color:rgba(255,107,122,.5);color:#ffc2c9;background:rgba(255,107,122,.12)}
+  .tag.past{border-color:#3a3a52;color:var(--sub);background:transparent}
+  .links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .link{border:1px solid var(--line);border-radius:12px;padding:12px;min-width:0}
+  .link b{display:block;font-size:13.5px;margin-bottom:6px}
+  .link code{display:block;font-size:12.5px;color:var(--sub);word-break:break-all;margin-bottom:8px;font-family:ui-monospace,Menlo,monospace}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+  table{border-collapse:collapse;width:100%;min-width:900px;font-size:14px}
+  th,td{padding:10px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+  th{font-size:12.5px;color:var(--sub);font-weight:600;white-space:nowrap}
+  tr:last-child td{border-bottom:0}
+  td.nw{white-space:nowrap}
+  td.no{font-size:20px;font-weight:800;color:var(--brand-2);width:44px;text-align:center}
+  td .s{display:block;color:var(--sub);font-size:12.5px;margin-top:2px}
+  td.ops{white-space:nowrap;text-align:right}
+  td.ops .btn{padding:7px 9px;font-size:13px;margin-left:2px}
+  a.play{display:inline-block;margin-top:4px;padding:4px 9px;border-radius:8px;border:1px solid rgba(127,119,221,.6);color:#d9d6ff;text-decoration:none;font-size:12.5px;font-weight:600}
+  .empty{padding:36px 16px;text-align:center;color:var(--sub)}
+  button.play{display:inline-block;margin-top:4px;padding:5px 11px;border-radius:8px;border:1px solid var(--brand);background:var(--brand);color:#fff;font-size:12.5px;font-weight:700;cursor:pointer}
+  a.yt{display:inline-block;margin:4px 0 0 6px;color:var(--sub);font-size:12px}
+  .player{max-width:760px}
+  .player .frame{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden}
+  .player .frame iframe,.player .frame > div{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .player .info{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px;font-size:14.5px}
+  .player .clock{font-size:26px;font-weight:800;color:var(--brand-2);font-variant-numeric:tabular-nums}
+  .player .clock.over{color:var(--err)}
+  .sheetback{position:fixed;inset:0;background:rgba(5,5,10,.7);display:grid;place-items:center;padding:16px;z-index:20}
+  .sheet{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;width:100%;max-width:440px}
+  .sheet h3{margin:0 0 12px;font-size:18px}
+  .sheet label{display:block;font-size:13.5px;color:var(--sub);margin:10px 0 6px}
+  .sheet .acts{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+  .sheet p{color:#d8d8e4;font-size:14.5px;line-height:1.7;margin:0}
+  #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#23233a;color:#fff;padding:10px 16px;border-radius:10px;font-size:14px;z-index:30}
+  .printonly{display:none}
+  th.memo,td.memo{display:none}
+  @media (max-width:640px){ .links{grid-template-columns:1fr} }
+
+  /* ───── A4 인쇄 양식 ───── */
+  @page{ size:A4 landscape; margin:12mm 10mm }
+  @media print{
+    html,body{background:#fff!important;color:#000!important}
+    .hero,.bar,.card,.noprint,footer,#toast,.sheetback{display:none!important}
+    main{max-width:none;padding:0}
+    .printonly{display:block}
+    .ptitle{font-size:18pt;font-weight:800;margin:0 0 2mm}
+    .psub{font-size:10.5pt;color:#333;margin:0 0 5mm}
+    .tablewrap{border:0;border-radius:0;background:#fff;overflow:visible}
+    table{min-width:0;font-size:10.5pt;color:#000}
+    th,td{border:0.3mm solid #444;padding:2.2mm 2mm}
+    tr:last-child td{border-bottom:0.3mm solid #444}
+    th{background:#eee!important;color:#000;font-size:9.5pt;-webkit-print-color-adjust:exact;print-color-adjust:exact;text-align:center}
+    td.no{color:#000;font-size:13pt;width:11mm}
+    td .s{color:#333;font-size:9pt}
+    th.memo,td.memo{display:table-cell;width:38mm}
+    a.play,button.play,a.yt,td.ops,th.ops{display:none!important}
+    tr{break-inside:avoid}
+    thead{display:table-header-group}
+  }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="brand"><span class="dot"></span>BEST VOCAL &amp; DANCE · BVD STUDIO</div>
+  <h1>오디션 명단</h1>
+  <p>학원 전용 화면입니다.</p>
+</header>
+<main id="app"></main>
+<div id="toast" hidden></div>
+
+<script src="config.js"></script>
+<script src="common.js"></script>
+<script>
+(function () {
+  'use strict';
+  var A = window.AUD, h = A.h, app = document.getElementById('app');
+  var KEY = 'bvd_aud_token';
+  var S = { token: null, data: null, roundId: null, busy: false, timer: null };
+  try { S.token = sessionStorage.getItem(KEY); } catch (e) {}
+  function saveToken(t) { S.token = t; try { if (t) sessionStorage.setItem(KEY, t); else sessionStorage.removeItem(KEY); } catch (e) {} }
+
+  var toastTimer;
+  function toast(msg) { var t = document.getElementById('toast'); t.textContent = msg; t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.hidden = true; }, 2200); }
+  function call(fn, p) {
+    p = p || {}; p.token = S.token;
+    return A.rpc(fn, p).catch(function (e) {
+      if (e.code === 'auth') { saveToken(null); S.data = null; boot(); throw new Error('다시 로그인해 주세요.'); }
+      throw e;
+    });
+  }
+
+  // ───── 창(확인·입력) ─────
+  function sheet(title, body, okLabel, onOk, danger) {
+    var err = h('p', { class: 'formerr', hidden: true, style: 'margin:12px 0 0' });
+    var ok = h('button', { class: 'btn ' + (danger ? 'danger' : 'primary'), type: 'button' }, okLabel);
+    var back = h('div', { class: 'sheetback', role: 'dialog', 'aria-modal': 'true', 'aria-label': title },
+      h('div', { class: 'sheet' }, h('h3', { text: title }), body, err,
+        h('div', { class: 'acts' }, h('button', { class: 'btn', type: 'button', onclick: close }, '취소'), ok)));
+    function close() { back.remove(); }
+    ok.addEventListener('click', function () {
+      err.hidden = true; ok.disabled = true;
+      Promise.resolve().then(onOk).then(close, function (e) { err.textContent = e.message; err.hidden = false; ok.disabled = false; });
+    });
+    back.addEventListener('mousedown', function (e) { if (e.target === back) close(); });
+    document.body.appendChild(back);
+    var f = back.querySelector('input,select'); if (f) f.focus();
+  }
+
+  // ───── 로그인 / 처음 비밀번호 정하기 ─────
+  function viewLogin(hasPassword) {
+    var pw = h('input', { type: 'password', autocomplete: hasPassword ? 'current-password' : 'new-password', placeholder: '비밀번호', 'aria-label': '비밀번호' });
+    var pw2 = hasPassword ? null : h('input', { type: 'password', autocomplete: 'new-password', placeholder: '비밀번호 한 번 더', 'aria-label': '비밀번호 확인' });
+    var err = h('p', { class: 'formerr', hidden: true });
+    var btn = h('button', { class: 'submit', type: 'submit' }, hasPassword ? '들어가기' : '비밀번호 정하고 시작하기');
+    var form = h('form', { class: 'login', novalidate: true }, h('div', { class: 'section' },
+      h('h2', { text: hasPassword ? '학원용 비밀번호' : '처음 설정: 학원용 비밀번호 정하기' }),
+      h('p', { text: hasPassword ? '명단을 보려면 학원에서 정한 비밀번호를 넣어 주세요.' : '명단 화면에 들어올 때 쓸 비밀번호를 정해 주세요. 6자 이상이며, 원장님·부원장님·담당 직원이 함께 씁니다.' }),
+      pw, pw2, err, btn));
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault(); err.hidden = true;
+      if (!hasPassword && pw.value !== pw2.value) { err.textContent = '두 비밀번호가 서로 다릅니다.'; err.hidden = false; return; }
+      btn.disabled = true;
+      A.rpc(hasPassword ? 'aud_admin_login' : 'aud_admin_setup', { password: pw.value }).then(function (d) { saveToken(d.token); load(); },
+        function (e) { err.textContent = e.message; err.hidden = false; btn.disabled = false; });
+    });
+    app.textContent = ''; app.appendChild(form); pw.focus();
+  }
+
+  // ───── 명단 ─────
+  function load(quiet) {
+    return call('aud_admin_list', S.roundId ? { roundId: S.roundId } : {}).then(function (d) { S.data = d; render(); },
+      function (e) { if (!quiet) toast(e.message); });
+  }
+  function act(fn, p, msg) {
+    if (S.busy) return Promise.resolve(); S.busy = true;
+    return call(fn, p).then(function () { return load(); }).then(function () { if (msg) toast(msg); }, function (e) { toast(e.message); })
+      .then(function () { S.busy = false; });
+  }
+  function baseUrl() { return location.href.replace(/[?#].*$/, '').replace(/admin\.html$/, ''); }
+
+  function roundForm(r) {
+    var co = h('input', { type: 'text', maxlength: '60', placeholder: '예) SM 엔터테인먼트', list: 'colist', value: r ? r.company : '' });
+    var dl = h('datalist', { id: 'colist' }, (S.data.companies || []).map(function (c) { return h('option', { value: c }); }));
+    var dt = h('input', { type: 'date', value: r ? r.date : nextWednesday() });
+    var tm = h('input', { type: 'time', value: r ? r.closeAt.split('T')[1] : '17:00' });
+    var body = h('div', null, h('label', { text: '회사 이름' }), co, dl, h('label', { text: '오디션 날짜' }), dt,
+      h('label', { text: '접수 마감 시각 (오디션 당일)' }), tm,
+      r ? null : h('p', { style: 'margin-top:12px;color:var(--sub);font-size:13.5px', text: '새 오디션을 열면 같은 신청 링크로 새 접수가 시작됩니다. 지난 명단은 그대로 보관됩니다.' }));
+    return { body: body, value: function () { return { company: co.value.trim(), date: dt.value, closeTime: tm.value }; } };
+  }
+  function nextWednesday() {
+    var d = new Date(), add = (3 - d.getDay() + 7) % 7; d.setDate(d.getDate() + add);
+    return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+  }
+  function openRound() {
+    var f = roundForm(null);
+    sheet('새 오디션 열기', f.body, '열기', function () {
+      return call('aud_admin_open_round', f.value()).then(function () { S.roundId = null; return load(); }).then(function () { toast('새 오디션 접수를 열었습니다.'); });
+    });
+  }
+  function editRound(r) {
+    var f = roundForm(r);
+    sheet('오디션 정보 고치기', f.body, '저장', function () {
+      var v = f.value(); v.roundId = r.id;
+      return call('aud_admin_update_round', v).then(function () { return load(); }).then(function () { toast('저장했습니다.'); });
+    });
+  }
+  function copy(text) {
+    function fallback() { var t = h('input', { value: text }); document.body.appendChild(t); t.select(); try { document.execCommand('copy'); } catch (e) {} t.remove(); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () {}, fallback); else fallback();
+    toast('링크를 복사했습니다.');
+  }
+
+  function render() {
+    var d = S.data, r = d.round, wrap = document.createDocumentFragment();
+    var sel = h('select', { 'aria-label': '회차 고르기', onchange: function () { S.roundId = +sel.value; load(); } },
+      d.rounds.map(function (x) { return h('option', { value: x.id, text: A.dateLabel(x.date) + ' ' + x.company + ' · ' + x.count + '명' }); }));
+    if (r) sel.value = String(r.id);
+    wrap.appendChild(h('div', { class: 'bar' },
+      d.rounds.length ? h('div', { class: 'grow' }, sel) : h('div', { class: 'grow' }),
+      h('button', { class: 'btn primary', type: 'button', onclick: openRound }, '+ 새 오디션 열기'),
+      h('button', { class: 'btn', type: 'button', onclick: changePw }, '비밀번호 변경'),
+      h('button', { class: 'btn', type: 'button', onclick: function () { call('aud_admin_logout').then(function () {}, function () {}); saveToken(null); S.data = null; boot(); } }, '로그아웃')));
+
+    if (!r) {
+      wrap.appendChild(h('div', { class: 'card' }, h('h2', { text: '아직 열린 오디션이 없습니다' }),
+        h('div', { class: 'meta', text: '[+ 새 오디션 열기]를 눌러 회사 이름과 날짜를 넣으면 접수가 시작됩니다.' })));
+      app.textContent = ''; app.appendChild(wrap); return;
+    }
+    var state = !r.isCurrent ? h('span', { class: 'tag past', text: '지난 회차' }) : (r.closed ? h('span', { class: 'tag closed', text: '접수 마감' }) : h('span', { class: 'tag', text: '접수 중' }));
+    var b = baseUrl();
+    wrap.appendChild(h('div', { class: 'card' },
+      h('h2', null, A.dateLabel(r.date) + ' ' + r.company, state),
+      h('div', { class: 'meta', text: '신청 ' + d.entries.length + '명 · 접수 마감 ' + A.dateLabel(r.closeAt.split('T')[0]) + ' ' + A.timeLabel(r.closeAt) }),
+      h('div', { class: 'bar', style: 'margin:12px 0 0' },
+        h('button', { class: 'btn', type: 'button', onclick: function () { editRound(r); } }, '회사 이름·날짜 고치기'),
+        h('button', { class: 'btn danger', type: 'button', onclick: function () {
+          sheet('이 회차 지우기', h('p', { text: A.dateLabel(r.date) + ' ' + r.company + ' 회차와 신청 ' + d.entries.length + '명의 내용(키·몸무게·생년월일 포함)을 모두 지웁니다. 되돌릴 수 없습니다.' }), '지우기', function () {
+            return call('aud_admin_delete_round', { roundId: r.id }).then(function () { S.roundId = null; return load(); }).then(function () { toast('지웠습니다.'); });
+          }, true);
+        } }, '이 회차 지우기')),
+      r.isCurrent ? h('div', { class: 'links' },
+        h('div', { class: 'link' }, h('b', { text: '보컬·댄스 둘 다 보는 회사용 링크' }), h('code', { text: b + '?t=both' }),
+          h('button', { class: 'btn', type: 'button', onclick: function () { copy(b + '?t=both'); } }, '링크 복사')),
+        h('div', { class: 'link' }, h('b', { text: '하나만 보는 회사용 링크' }), h('code', { text: b + '?t=one' }),
+          h('button', { class: 'btn', type: 'button', onclick: function () { copy(b + '?t=one'); } }, '링크 복사'))) : null));
+
+    wrap.appendChild(h('div', { class: 'bar noprint' },
+      h('button', { class: 'btn primary', type: 'button', disabled: !d.entries.length, onclick: function () { window.print(); } }, 'A4로 인쇄'),
+      h('button', { class: 'btn', type: 'button', onclick: function () { load().then(function () { toast('새로 불러왔습니다.'); }); } }, '새로 고침'),
+      h('button', { class: 'btn', type: 'button', disabled: d.entries.length < 2, onclick: function () {
+        sheet('접수 순서로 되돌리기', h('p', { text: '직접 바꾼 순서를 지우고, 접수한 순서(곡을 바꾼 학생은 바꾼 시각 기준)로 되돌립니다.' }), '되돌리기', function () {
+          return call('aud_admin_reset_order', { roundId: r.id }).then(function () { return load(); }).then(function () { toast('접수 순서로 되돌렸습니다.'); });
+        });
+      } }, '접수 순서로 되돌리기')));
+
+    wrap.appendChild(h('div', { class: 'printonly' },
+      h('p', { class: 'ptitle', text: r.company + ' 오디션 순서' }),
+      h('p', { class: 'psub', text: A.dateLabel(r.date).replace(/^/, r.date.slice(0, 4) + '년 ') + ' · 총 ' + d.entries.length + '명 · 베스트보컬&댄스' })));
+
+    if (!d.entries.length) {
+      wrap.appendChild(h('div', { class: 'tablewrap' }, h('div', { class: 'empty', text: '아직 신청한 학생이 없습니다. 위 링크를 단체톡에 보내 주세요.' })));
+    } else {
+      var last = d.entries.length - 1;
+      var rows = d.entries.map(function (e, i) {
+        var v = (e.part === 'dance') ? h('td', { text: '—' }) : h('td', null, e.vTitle, h('span', { class: 's', text: e.vArtist }));
+        var play = A.playUrl(e.dUrl, e.dStart);
+        var dn = (e.part === 'vocal') ? h('td', { text: '—' }) : h('td', null, e.dTitle, h('span', { class: 's', text: e.dArtist }));
+        var rng = (e.part === 'vocal') ? h('td', { text: '—' }) : h('td', null, A.mmss(e.dStart) + ' ~ ' + A.mmss(e.dEnd),
+          h('br'),
+          A.ytId(e.dUrl) ? h('button', { class: 'play', type: 'button', 'aria-label': e.name + ' 댄스 곡 틀기', onclick: function () { playSheet(e); } }, '▶ 틀기') : null,
+          play ? h('a', { class: 'yt', href: play, target: '_blank', rel: 'noopener noreferrer' }, '유튜브에서 열기') : null);
+        return h('tr', null,
+          h('td', { class: 'no', text: String(e.no) }),
+          h('td', null, h('b', { text: e.name }), h('span', { class: 's', text: e.gender + (e.changed ? ' · 수정함' : '') })),
+          h('td', { class: 'nw', text: e.birth.replace(/-/g, '.') }),
+          h('td', { class: 'nw', text: e.height + ' cm' }), h('td', { class: 'nw', text: e.weight + ' kg' }),
+          h('td', { class: 'nw', text: A.partLabel(e.part) }), v, dn, rng,
+          h('td', { class: 'memo' }),
+          h('td', { class: 'ops' },
+            h('button', { class: 'btn', type: 'button', disabled: i === 0, 'aria-label': e.name + ' 위로', onclick: function () { act('aud_admin_move', { id: e.id, dir: 'up' }); } }, '▲'),
+            h('button', { class: 'btn', type: 'button', disabled: i === last, 'aria-label': e.name + ' 아래로', onclick: function () { act('aud_admin_move', { id: e.id, dir: 'down' }); } }, '▼'),
+            h('button', { class: 'btn', type: 'button', disabled: i === last, onclick: function () { act('aud_admin_move', { id: e.id, dir: 'last' }, e.name + ' 학생을 맨 뒤로 보냈습니다.'); } }, '맨 뒤로'),
+            h('button', { class: 'btn danger', type: 'button', onclick: function () {
+              sheet('신청 지우기', h('p', { text: e.name + ' 학생의 신청을 명단에서 지웁니다.' }), '지우기', function () {
+                return call('aud_admin_delete_entry', { id: e.id }).then(function () { return load(); }).then(function () { toast('지웠습니다.'); });
+              }, true);
+            } }, '삭제')));
+      });
+      wrap.appendChild(h('div', { class: 'tablewrap' }, h('table', null,
+        h('thead', null, h('tr', null, ['순번', '이름', '생년월일', '키', '몸무게', '파트', '보컬 곡', '댄스 곡', '댄스 구간', '메모'].map(function (t) { return h('th', { class: t === '메모' ? 'memo' : '', text: t }); }),
+          h('th', { class: 'ops', text: '순서 바꾸기' }))),
+        h('tbody', null, rows))));
+    }
+    app.textContent = ''; app.appendChild(wrap);
+  }
+
+  // ───── 댄스 곡 틀기: 시작 지점 2초 앞에서, 소리를 빠르게 키우며 시작 ─────
+  var LEAD = 2;        // 시작 지점보다 몇 초 앞에서 틀지
+  var FADE_MS = 1200;  // 소리가 0에서 끝까지 올라가는 시간(짧고 가파르게)
+  var ytReady = null;
+  function loadYT() {
+    if (ytReady) return ytReady;
+    ytReady = new Promise(function (res, rej) {
+      if (window.YT && window.YT.Player) return res();
+      var prev = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = function () { if (prev) prev(); res(); };
+      var sc = document.createElement('script'); sc.src = 'https://www.youtube.com/iframe_api';
+      sc.onerror = function () { ytReady = null; rej(new Error('유튜브에 연결하지 못했습니다.')); };
+      document.head.appendChild(sc);
+    });
+    return ytReady;
+  }
+  function playSheet(e) {
+    var id = A.ytId(e.dUrl), from = Math.max(0, e.dStart - LEAD), player = null, tick = null, fade = null, faded = false;
+    var holder = h('div'), frame = h('div', { class: 'frame' }, holder);
+    var clock = h('span', { class: 'clock', text: A.mmss(from) });
+    var msg = h('span', { style: 'color:var(--sub)', text: '불러오는 중…' });
+    var link = h('a', { class: 'yt', href: A.playUrl(e.dUrl, from) || '#', target: '_blank', rel: 'noopener noreferrer' }, '유튜브에서 열기');
+    var back = h('div', { class: 'sheetback', role: 'dialog', 'aria-modal': 'true', 'aria-label': e.name + ' 댄스 곡' },
+      h('div', { class: 'sheet player' },
+        h('h3', { text: e.no + '번 ' + e.name + ' · ' + e.dTitle + ' (' + e.dArtist + ')' }), frame,
+        h('div', { class: 'info' }, clock, h('span', null, '구간 ', h('b', { text: A.mmss(e.dStart) + ' ~ ' + A.mmss(e.dEnd) })), msg),
+        h('div', { class: 'acts' }, link,
+          h('button', { class: 'btn', type: 'button', onclick: function () { start(); } }, '처음부터 다시'),
+          h('button', { class: 'btn primary', type: 'button', id: 'stopBtn', onclick: close }, '끄기'))));
+    function close() {
+      clearInterval(tick); clearInterval(fade);
+      try { if (player && player.stopVideo) player.stopVideo(); if (player && player.destroy) player.destroy(); } catch (x) {}
+      back.remove();
+    }
+    function fadeIn() {
+      var t0 = Date.now(); clearInterval(fade);
+      fade = setInterval(function () {
+        var k = Math.min(1, (Date.now() - t0) / FADE_MS);
+        try { player.setVolume(Math.round(100 * k * k)); } catch (x) {}   // 처음은 살짝, 곧바로 가파르게
+        if (k >= 1) clearInterval(fade);
+      }, 40);
+    }
+    function start() {
+      faded = false; clearInterval(fade);
+      try { player.setVolume(0); player.seekTo(from, true); player.playVideo(); } catch (x) {}
+    }
+    document.body.appendChild(back);
+    loadYT().then(function () {
+      if (!back.isConnected) return;
+      player = new window.YT.Player(holder, { videoId: id, width: '100%', height: '100%',
+        playerVars: { start: from, autoplay: 1, playsinline: 1, rel: 0 },
+        events: {
+          onReady: function () { start(); },
+          onStateChange: function (ev) {
+            if (ev.data === 1 && !faded) { faded = true; msg.textContent = ''; fadeIn(); }
+          },
+          onError: function () { msg.textContent = '이 영상은 여기서 틀 수 없게 되어 있습니다. [유튜브에서 열기]를 눌러 주세요.'; msg.style.color = 'var(--err)'; }
+        } });
+      tick = setInterval(function () {
+        var t; try { t = player.getCurrentTime(); } catch (x) { return; }
+        if (typeof t !== 'number') return;
+        clock.textContent = A.mmss(Math.floor(t));
+        var over = t >= e.dEnd; clock.classList.toggle('over', over);
+        if (over && faded) msg.textContent = '끝 지점(' + A.mmss(e.dEnd) + ')을 지났습니다.';
+      }, 250);
+    }, function (err) { msg.textContent = err.message + ' [유튜브에서 열기]를 눌러 주세요.'; msg.style.color = 'var(--err)'; });
+  }
+
+  function changePw() {
+    var cur = h('input', { type: 'password', autocomplete: 'current-password' }), nw = h('input', { type: 'password', autocomplete: 'new-password' });
+    sheet('비밀번호 변경', h('div', null, h('label', { text: '현재 비밀번호' }), cur, h('label', { text: '새 비밀번호 (6자 이상)' }), nw), '변경', function () {
+      return call('aud_admin_change_password', { current: cur.value, password: nw.value }).then(function () { toast('비밀번호를 바꿨습니다.'); });
+    });
+  }
+
+  function boot() {
+    clearInterval(S.timer);
+    if (S.token) {
+      app.textContent = ''; app.appendChild(h('div', { class: 'empty', text: '불러오는 중…' }));
+      load(true).then(function () {
+        if (!S.data) return;
+        // 접수가 들어오는 것을 30초마다 반영(창이 떠 있거나 화면이 숨겨져 있으면 건너뜀)
+        S.timer = setInterval(function () { if (!document.hidden && !document.querySelector('.sheetback') && !S.busy) load(true); }, 30000);
+      });
+      return;
+    }
+    A.rpc('aud_admin_status').then(function (d) { viewLogin(d.hasPassword); },
+      function (e) { app.textContent = ''; app.appendChild(h('div', { class: 'notice bad', text: e.message })); });
+  }
+  boot();
+})();
+</script>
+</body>
+</html>
