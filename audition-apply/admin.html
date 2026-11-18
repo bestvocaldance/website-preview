@@ -37,7 +37,7 @@
   td .s{display:block;color:var(--sub);font-size:12.5px;margin-top:2px}
   td.ops{white-space:nowrap;text-align:right}
   td.ops .btn{padding:7px 9px;font-size:13px;margin-left:2px}
-  a.play{display:inline-block;margin-top:4px;padding:4px 9px;border-radius:8px;border:1px solid rgba(127,119,221,.6);color:#d9d6ff;text-decoration:none;font-size:12.5px;font-weight:600}
+  a.play{display:inline-block;margin-top:4px;padding:5px 11px;border-radius:8px;border:1px solid var(--brand);background:var(--brand);color:#fff;text-decoration:none;font-size:12.5px;font-weight:700}
   .empty{padding:36px 16px;text-align:center;color:var(--sub)}
   button.play{display:inline-block;margin-top:4px;padding:5px 11px;border-radius:8px;border:1px solid var(--brand);background:var(--brand);color:#fff;font-size:12.5px;font-weight:700;cursor:pointer}
   a.yt{display:inline-block;margin:4px 0 0 6px;color:var(--sub);font-size:12px}
@@ -246,12 +246,11 @@
       var last = d.entries.length - 1;
       var rows = d.entries.map(function (e, i) {
         var v = (e.part === 'dance') ? h('td', { text: '—' }) : h('td', null, e.vTitle, h('span', { class: 's', text: e.vArtist }));
-        var play = A.playUrl(e.dUrl, e.dStart);
+        var play = A.playUrl(e.dUrl, Math.max(0, e.dStart - 2));   // 시작 지점 2초 전부터 유튜브에서 열기
         var dn = (e.part === 'vocal') ? h('td', { text: '—' }) : h('td', null, e.dTitle, h('span', { class: 's', text: e.dArtist }));
         var rng = (e.part === 'vocal') ? h('td', { text: '—' }) : h('td', null, A.mmss(e.dStart) + ' ~ ' + A.mmss(e.dEnd),
           h('br'),
-          A.ytId(e.dUrl) ? h('button', { class: 'play', type: 'button', 'aria-label': e.name + ' 댄스 곡 틀기', onclick: function () { playSheet(e); } }, '▶ 틀기') : null,
-          play ? h('a', { class: 'yt', href: play, target: '_blank', rel: 'noopener noreferrer' }, '유튜브에서 열기') : null);
+          play ? h('a', { class: 'play', href: play, target: '_blank', rel: 'noopener noreferrer', 'aria-label': e.name + ' 댄스 곡 유튜브에서 틀기' }, '▶ 틀기') : null);
         return h('tr', null,
           h('td', { class: 'no', text: String(e.no) }),
           h('td', null, h('b', { text: e.name }), h('span', { class: 's', text: e.gender + (e.changed ? ' · 수정함' : '') })),
